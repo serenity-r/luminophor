@@ -1,0 +1,16 @@
+Package: phosphorus
+Type: Package
+Title: HTMLWidget implementation of PhosphorJS
+Version: 0.0.0.9000
+Author: person("M. Drew", "LaMar", email = "drew.lamar@gmail.com", role = c("aut", "cre"))
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+Depends: R (>= 3.0)
+Imports:
+    shiny,
+    htmlwidgets    
+License: BSD 3 + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
