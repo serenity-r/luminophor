@@ -1,0 +1,9 @@
+dependencies:
+- name: phosphorr
+  version: 0.0.0.9000
+  src: htmlwidgets
+  style: phosphorr.css
+- name: phosphorjs
+  version: 1.0.0
+  src: htmlwidgets/lib/phosphorjs
+  script: phosphor.js

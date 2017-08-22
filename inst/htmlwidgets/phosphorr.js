@@ -1,6 +1,6 @@
 HTMLWidgets.widget({
 
-  name: 'phosphorus',
+  name: 'phosphorr',
 
   type: 'output',
 
