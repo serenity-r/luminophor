@@ -10,3 +10,11 @@
   padding: 0;
   overflow: hidden;
 }
+
+.p-BoxPanel {
+  flex: 1 1 auto;
+}
+
+.p-DockPanel {
+  padding: 4px;
+}
