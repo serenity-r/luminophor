@@ -1,0 +1,26 @@
+.p-TabBar {
+  max-height: 30px !important;
+  height: 30px !important;
+}
+
+.p-TabBar-tab {
+  border-top: 3px solid transparent !important;
+  max-height: 30px !important;
+  line-height: 30px !important;
+}
+
+.p-TabBar-content {
+  border-bottom: 1px solid #d7d7d7 !important;
+}
+
+.p-mod-current {
+  border-top: 3px solid rgba(39, 128, 277, 0.7) !important;
+}
+
+.p-DockPanel-widget {
+  padding-top: 12px !important;
+}
+
+.p-DockPanel-handle {
+  transform: translateY(6px);
+}

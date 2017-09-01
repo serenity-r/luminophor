@@ -25,7 +25,8 @@ phosphorr <- function(items = NULL, width = "100%", height = "auto", elementId =
     width = width,
     height = height,
     package = 'phosphorr',
-    dependencies = rmarkdown::html_dependency_font_awesome(), # Widgets don't load these automatically like Shiny
+    dependencies = list(rmarkdown::html_dependency_jquery(),
+                        rmarkdown::html_dependency_font_awesome()), # Widgets don't load these automatically like Shiny
     elementId = elementId
   )
 }

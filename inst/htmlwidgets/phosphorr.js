@@ -31,6 +31,11 @@ HTMLWidgets.widget({
   	      // Attach BoxPanel to el
   	      phosphorjs.Widget.attach(box, el);
         }
+
+        // http://ianjgough.com/jquery/add-and-remove-stylesheets-with-jquery/
+        // Smartify this later - How do I know the 2nd is flexdash???
+        $("head").find("link").attr("rel", "stylesheet")[1].id = "flexdash";
+        $("#flexdash").remove(); // +1-1 = 0.  Keeping here for reference.
       },
 
       resize: function(width, height) {
