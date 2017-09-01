@@ -1,0 +1,30 @@
+---
+title: "Tabset Column"
+output: flexdashboard::flex_dashboard
+---
+
+```{r, echo=FALSE}
+library(ggplot2)
+```
+
+Column 
+-------------------------------------
+    
+### Chart 1
+    
+```{r}
+```
+   
+Column {.tabset}
+-------------------------------------
+   
+### Chart 2
+
+```{r}
+ggplot(aes(x = mpg, y = cyl), data=mtcars) + geom_point()
+```   
+ 
+### Chart 3
+    
+```{r}
+```
