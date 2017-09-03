@@ -1,7 +1,7 @@
 dependencies:
 - name: phosphorr
   version: 0.0.0.9000
-  src: htmlwidgets
+  src: htmlwidgets/tmpl
   style:
     - phosphorr.css
     - flexdash.css
