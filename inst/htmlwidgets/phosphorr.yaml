@@ -3,8 +3,7 @@ dependencies:
   version: 0.0.0.9000
   src: htmlwidgets/tmpl
   style:
-    - phosphorr.css
-    - flexdash.css
+    - phosphor.css
 - name: phosphorjs
   version: 1.0.0
   src: htmlwidgets/lib/phosphorjs

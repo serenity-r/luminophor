@@ -58,3 +58,13 @@ renderPhosphorr <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
   htmlwidgets::shinyRenderWidget(expr, phosphorrOutput, env, quoted = TRUE)
 }
+
+# Custom HTML ----
+
+# Add custom HTML to wrap the widget (called automatically by createWidget)
+phosphorr_html <- function(id, style, class, ...) {
+  htmltools::tags$div(
+    id = id, class = class, style = style,
+    htmltools::tags$div(class = "phosphorr-wrap")
+  )
+}
