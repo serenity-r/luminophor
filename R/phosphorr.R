@@ -5,17 +5,21 @@
 #' @import htmlwidgets
 #'
 #' @export
-phosphorr <- function(items = NULL, width = "100%", height = "auto", elementId = NULL) {
+phosphorr <- function(items = NULL, width = "100%", height = "72vh", elementId = NULL) {
 
   # Default options
-  options = list()
+  options = list(
+    example = "default"
+  )
 
   if (!is.null(items)) {
     x = list(
       items = utils::modifyList(options, items)
     )
   } else {
-    x = options
+    x = list(
+      items = options
+    )
   }
 
   # create widget
@@ -65,6 +69,6 @@ renderPhosphorr <- function(expr, env = parent.frame(), quoted = FALSE) {
 phosphorr_html <- function(id, style, class, ...) {
   htmltools::tags$div(
     id = id, class = class, style = style,
-    htmltools::tags$div(class = "phosphorr-wrap")
+    htmltools::tags$div(class = "phosphorr-shim")
   )
 }

@@ -4,7 +4,7 @@
 \alias{phosphorr}
 \title{<Add Title>}
 \usage{
-phosphorr(items = NULL, width = "100\%", height = "auto",
+phosphorr(items = NULL, width = "100\%", height = "72vh",
   elementId = NULL)
 }
 \description{

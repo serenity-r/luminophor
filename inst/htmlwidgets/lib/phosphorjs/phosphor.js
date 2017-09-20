@@ -26539,6 +26539,7 @@ exports.Message = messaging_1.Message;
 var widgets_2 = __webpack_require__(60);
 exports.BoxPanel = widgets_2.BoxPanel;
 exports.DockPanel = widgets_2.DockPanel;
+exports.DockLayout = widgets_2.DockLayout;
 exports.Widget = widgets_2.Widget;
 var ContentWidget = (function (_super) {
     __extends(ContentWidget, _super);
