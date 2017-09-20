@@ -8,9 +8,7 @@
 phosphorr <- function(items = NULL, width = "100%", height = "72vh", elementId = NULL) {
 
   # Default options
-  options = list(
-    example = "default"
-  )
+  options = list()
 
   if (!is.null(items)) {
     x = list(
@@ -71,4 +69,60 @@ phosphorr_html <- function(id, style, class, ...) {
     id = id, class = class, style = style,
     htmltools::tags$div(class = "phosphorr-shim")
   )
+}
+
+# API ---
+
+#' Create a phosphorr proxy object
+#'
+#' @param id Name of the phosphorr panel
+#' @param session Valid session object
+#'
+#' @return panel proxy object
+#' @export
+phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
+  object        <- list( id = id, session = session )
+  class(object) <- "phosphorrProxy"
+
+  return(object)
+}
+
+#' Adds a new widget to the dock
+#'
+#' @param phosphorrProxy Proxy phosphorr object
+#' @param id ID for phosphorr widget
+#' @param content Code for phosphorr widget UI
+#' @param ui Shiny UI content.  If just text, need to use HTML(...)
+#'
+#' @return phosphorrProxy
+#' @export
+addWidget <- function(phosphorrProxy,
+                      id,
+                      title = "Widget",
+                      closable = TRUE,
+                      content = "",
+                      ui = HTML("I am a widget!")) {
+
+  data <- list(boxID = phosphorrProxy$id,
+               widgetID = id,
+               title = title,
+               closable = closable,
+               content = as.character(tags$div(id = id,
+                                               class = "content",
+                                               tags$div(content))
+               )
+  )
+
+  # Namespacing to avoid conflicts (http://deanattali.com/blog/htmlwidgets-tips/)
+  phosphorrProxy$session$sendCustomMessage("phosphorr:addWidget", data)
+
+  insertUI(
+    selector = paste(
+      paste0("#", data$boxID),
+      paste0("#", data$widgetID),
+      "div"),
+    ui = ui
+  )
+
+  return(phosphorrProxy)
 }

@@ -13,7 +13,23 @@ HTMLWidgets.widget({
       renderValue: function(opts) {
 
         if (box === null) {
+          // Create BoxPanel
+  	      box = new phosphorjs.BoxPanel({ direction: 'left-to-right', spacing: 0 });
 
+  	      // Create DockPanel
+  	      var dock = new phosphorjs.DockPanel();
+  	      box.addWidget(dock);
+
+  	      // Create ContentWidget (right now, uses predefined function)
+  	      // var r1 = new phosphorjs.ContentWidget('Red');
+  	      // var r2 = new phosphorjs.ContentWidget('Blue');
+
+  	      // Add widgets in appropriate places - this can be done in any order
+  	      // dock.addWidget(r1);
+  	      // dock.addWidget(r2);
+
+  	      // Attach BoxPanel to el
+  	      phosphorjs.Widget.attach(box, $('#'+el.id).find(".phosphorr-shim")[0]);
         }
 
         // http://ianjgough.com/jquery/add-and-remove-stylesheets-with-jquery/
@@ -52,3 +68,23 @@ function getBox(id) {
 
   return(phosphorrObj);
 }
+
+// ---- R -> Javascript
+
+// Note:  Might want to make widget ids boxID + widgetID so can have same widgetID in different stacks.  Right now, based on best practices, items must have unique IDs, even across different boxes
+
+// Custom handler to add a new widget
+Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
+  // Add widget content to DOM
+  $('#'+message.boxID).append(message.content);
+
+  // Create widget and bind content
+  var steve = new phosphorjs.Widget({node: document.getElementById(message.widgetID)});
+
+  // Add title and make closable
+  steve.title.label = message.title;
+  steve.title.closable = message.closable;
+
+  // Attach widget to panel (first widget is dock)
+  getBox(message.boxID).widgets[0].addWidget(steve);
+});

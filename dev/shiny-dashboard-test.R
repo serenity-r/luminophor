@@ -79,22 +79,21 @@ server <- function(input, output, session) {
     phosphorr()
   })
 
-  observeEvent(input$jsRemove, {
-    showModal(modalDialog(
-      tags$b("Are you sure you want to close this widget?"),
-      footer = tagList(
-        modalButton("No"),
-        actionButton("remove", "Yes, close widget")
-      ),
-      size = "s"
-    ))
-  })
+  observeEvent(input$btn, {
+    ns <- NS(input$btn)
 
-  observeEvent(input$remove, {
-    gridstackrProxy(input$jsRemove$gridID) %>%
-      removeWidget(id = input$jsRemove$itemID,
-                   uiWrapperClass = '.chart-shim')
-    removeModal()
+    phosphorrProxy("pjsbox") %>%
+      addWidget(id = paste0('widget', ns('slider')),
+                ui = sliderInput(ns('slider'), "Number of observations:", 1, 100, 50),
+                title = "Slider") %>%
+      addWidget(id = paste0('widget-', ns('plot')),
+                ui = plotOutput(ns('plot'), height = 250),
+                title = "Histogram")
+
+    output[[ns('plot')]] <- renderPlot({
+      data <- histdata[seq_len(input[[ns('slider')]])]
+      hist(data)
+    })
   })
 }
 
