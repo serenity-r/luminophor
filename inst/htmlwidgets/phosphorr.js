@@ -86,5 +86,5 @@ Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
   steve.title.closable = message.closable;
 
   // Attach widget to panel (first widget is dock)
-  getBox(message.boxID).widgets[0].addWidget(steve);
+  getBox(message.boxID).widgets[0].addWidget(widget = steve, options = {mode: 'tab-after'});
 });
