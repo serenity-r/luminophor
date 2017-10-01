@@ -6,19 +6,15 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
-    var box = null;
+    var dock = null;
 
     return {
 
       renderValue: function(opts) {
 
-        if (box === null) {
-          // Create BoxPanel
-  	      box = new phosphorjs.BoxPanel({ direction: 'left-to-right', spacing: 0 });
-
+        if (dock === null) {
   	      // Create DockPanel
-  	      var dock = new phosphorjs.DockPanel();
-  	      box.addWidget(dock);
+  	      dock = new phosphorjs.DockPanel();
 
   	      // Create ContentWidget (right now, uses predefined function)
   	      // var r1 = new phosphorjs.ContentWidget('Red');
@@ -29,7 +25,7 @@ HTMLWidgets.widget({
   	      // dock.addWidget(r2);
 
   	      // Attach BoxPanel to el
-  	      phosphorjs.Widget.attach(box, $('#'+el.id).find(".phosphorr-shim")[0]);
+  	      phosphorjs.Widget.attach(dock, $('#'+el.id).find(".phosphorr-shim")[0]);
         }
 
         // http://ianjgough.com/jquery/add-and-remove-stylesheets-with-jquery/
@@ -42,20 +38,20 @@ HTMLWidgets.widget({
       },
 
       resize: function(width, height) {
-        box.update();
+        dock.update();
       },
 
       // Give access to box if anyone needs it on the outside
       // Using in console:  HTMLWidgets.find(".phosphorr").getBox()
-      getBox: function() {
-        return box;
+      getDock: function() {
+        return dock;
       }
     };
   }
 });
 
 // Helper function to get an existing phosphorr object via the htmlWidgets object.
-function getBox(id) {
+function getDock(id) {
 
   // Get the HTMLWidgets object
   var htmlWidgetsObj = HTMLWidgets.find("#" + id);
@@ -63,7 +59,7 @@ function getBox(id) {
   var phosphorrObj = null;
   if( typeof(htmlWidgetsObj) !== "undefined"){
     // Use the getBox method we created to get the underlying gridstack
-    phosphorrObj = htmlWidgetsObj.getBox();
+    phosphorrObj = htmlWidgetsObj.getDock();
   }
 
   return(phosphorrObj);
@@ -76,15 +72,15 @@ function getBox(id) {
 // Custom handler to add a new widget
 Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
   // Add widget content to DOM
-  $('#'+message.boxID).append(message.content);
+  $('#'+message.dockID).append(message.content);
 
   // Create widget and bind content
   var steve = new phosphorjs.Widget({node: document.getElementById(message.widgetID)});
 
   // Add title and make closable
   steve.title.label = message.title;
-  steve.title.closable = message.closable;
+  // steve.title.closable = message.closable;
 
   // Attach widget to panel (first widget is dock)
-  getBox(message.boxID).widgets[0].addWidget(widget = steve, options = {mode: 'tab-after'});
+  getDock(message.dockID).addWidget(widget = steve, options = {mode: 'tab-after'});
 });
