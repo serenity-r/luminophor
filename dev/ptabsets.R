@@ -9,6 +9,7 @@
 
 library(shiny)
 library(phosphorr)
+library(magrittr)
 
 ui <- fluidPage(
   titlePanel("PhosphorR Tabsets"),

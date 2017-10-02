@@ -8,3 +8,7 @@ dependencies:
   version: 1.0.0
   src: htmlwidgets/lib/phosphorjs
   script: phosphor.js
+- name: underscore.js
+  version: 1.8.3
+  src: htmlwidgets/lib/underscore
+  script: underscore-min.js
