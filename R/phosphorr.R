@@ -103,7 +103,7 @@ addWidget <- function(phosphorrProxy,
                       content = "",
                       ui = HTML("I am a widget!")) {
 
-  data <- list(boxID = phosphorrProxy$id,
+  data <- list(dockID = phosphorrProxy$id,
                widgetID = id,
                title = title,
                closable = closable,
@@ -118,7 +118,7 @@ addWidget <- function(phosphorrProxy,
 
   insertUI(
     selector = paste(
-      paste0("#", data$boxID),
+      paste0("#", data$dockID),
       paste0("#", data$widgetID),
       "div"),
     ui = ui

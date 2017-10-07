@@ -8,37 +8,12 @@
 #
 
 library(shiny)
+library(ggplot2)
 library(magrittr)
 library(phosphorr)
 
 # Define UI for application that draws a histogram
 library(shinydashboard)
-
-myWidget <- function(gridstackrProxy,
-                     id,
-                     ui = HTML("Hello, World!"),
-                     title = "Chart Title") {
-
-  content <- tagList(
-    tags$div(
-      class = "chart-title",
-      tags$span(title),
-      tags$div(
-        class = "action-icons",
-        icon("minus", class = "gs-minimize-handle"),
-        icon("close", class = "gs-remove-handle")
-      )
-    ),
-    tags$div(class = "chart-stage",
-             tags$div(class = "chart-shim"))
-  )
-
-  return(addWidget(gridstackrProxy,
-                   id = id,
-                   content = content,
-                   ui = ui,
-                   uiWrapperClass = ".chart-shim"))
-}
 
 ui <- dashboardPage(
   dashboardHeader(title = "Sample Layout"),
@@ -87,12 +62,12 @@ server <- function(input, output, session) {
                 ui = sliderInput(ns('slider'), "Number of observations:", 1, 100, 50),
                 title = "Slider") %>%
       addWidget(id = paste0('widget-', ns('plot')),
-                ui = plotOutput(ns('plot'), height = 250),
+                ui = plotOutput(ns('plot')),
                 title = "Histogram")
 
     output[[ns('plot')]] <- renderPlot({
-      data <- histdata[seq_len(input[[ns('slider')]])]
-      hist(data)
+      mydata <- histdata[seq_len(input[[ns('slider')]])]
+      hist(mydata)
     })
   })
 }
