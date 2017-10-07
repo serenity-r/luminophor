@@ -84,7 +84,7 @@ Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
   // Need to rebind Shiny on certain events (for now, show and resize only)
   // Also need throttling for resize:  https://shiny.rstudio.com/articles/js-dashboard.html
   steve.onAfterShow = function(msg) { Shiny.bindAll(this); };
-  steve.onResize = _.throttle( function(msg) { Shiny.bindAll(this); }, 250 );
+  steve.onResize = _.debounce( function(msg) { Shiny.bindAll(this); }, 150 );
 
   // Attach widget to panel (first widget is dock)
   getDock(message.dockID).addWidget(widget = steve, options = {mode: 'tab-after'});
