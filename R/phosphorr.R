@@ -91,7 +91,13 @@ phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #'
 #' @param phosphorrProxy Proxy phosphorr object
 #' @param id ID for phosphorr widget
+#' @param closable Create removable
 #' @param content Code for phosphorr widget UI
+#' @param insertmode How should the widget be added? Options include \code{split-right}, \code{split-left},
+#'   \code{split-bottom}, \code{split-top}, \code{tab-before}, and \code{tab-after} (default)
+#' @param refwidget Reference widget ID for \code{insertmode} action
+#' @param relsize Relative size of widget (between 0 and 1) in relation to \code{refwidget} (or last widget
+#'   if \code{refwidget} isn't specified)
 #' @param ui Shiny UI content.  If just text, need to use HTML(...)
 #'
 #' @return phosphorrProxy
@@ -100,6 +106,9 @@ addWidget <- function(phosphorrProxy,
                       id,
                       title = "Widget",
                       closable = TRUE,
+                      insertmode = "tab-after",
+                      refwidgetID = NULL,
+                      relsize = NULL,
                       content = "",
                       ui = HTML("I am a widget!")) {
 
@@ -107,6 +116,9 @@ addWidget <- function(phosphorrProxy,
                widgetID = id,
                title = title,
                closable = closable,
+               mode = insertmode,
+               refwidgetID = refwidgetID,
+               size = relsize,
                content = as.character(tags$div(id = id,
                                                class = "content",
                                                tags$div(content))

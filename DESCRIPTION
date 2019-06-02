@@ -1,15 +1,17 @@
 Package: phosphorr
-Type: Package
 Title: HTMLWidget implementation of PhosphorJS
 Version: 0.0.0.9000
-Author: person("M. Drew", "LaMar", email = "drew.lamar@gmail.com", role = c("aut", "cre"))
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-Depends: R (>= 3.0)
+Authors@R: person("M. Drew", "LaMar", email = "mdlama@wm.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4037-1848"))
+Description: HTMLWidget implementation of PhosphorJS
+    PhosphorJS provides a rich set of widgets, layouts, events, and data structures. 
+    These enable developers to construct advanced, production-quality, desktop-like 
+    web applications that would be otherwise impossible using CSS alone. See the
+    PhosphorJS library for more information (http://phosphorjs.github.io/).
+Depends: R (>= 3.4.0)
 Imports:
     shiny,
     htmlwidgets    
+URL: https://github.com/serenity-r/phosphorr
 License: BSD 3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
