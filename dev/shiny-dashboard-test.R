@@ -62,8 +62,38 @@ server <- function(input, output, session) {
                 ui = sliderInput(ns('slider'), "Number of observations:", 1, 100, 50),
                 title = "Slider") %>%
       addWidget(id = paste0('widget-', ns('plot')),
+                refwidget = paste0('widget', ns('slider')),
+                insertmode = "split-right",
+                relsize = 0.6,
                 ui = plotOutput(ns('plot')),
-                title = "Histogram")
+                title = "Histogram") %>%
+      addWidget(id = "code",
+                refwidget = paste0('widget-', ns('plot')),
+                insertmode = "split-bottom",
+                relsize = 0.25,
+                ui = HTML("Code"),
+                title = "Code") %>%
+      addWidget(id = "vars",
+                refwidget = paste0('widget', ns('slider')),
+                insertmode = "split-bottom",
+                relsize = 0.75,
+                ui = HTML("Vars"),
+                title = "Variables") %>%
+      addWidget(id = "aes",
+                refwidget = "vars",
+                insertmode = "split-right",
+                ui = HTML("Aesthetics"),
+                title = "Aesthetics") %>%
+      addWidget(id = "messages",
+                refwidget = "code",
+                insertmode = "tab-after",
+                ui = HTML("Messages"),
+                title = "Messages") %>%
+      addWidget(id = "help",
+                refwidget = "messages",
+                insertmode = "tab-after",
+                ui = HTML("Help"),
+                title = "Help")
 
     output[[ns('plot')]] <- renderPlot({
       mydata <- histdata[seq_len(input[[ns('slider')]])]

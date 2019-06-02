@@ -5,6 +5,7 @@
 \title{Adds a new widget to the dock}
 \usage{
 addWidget(phosphorrProxy, id, title = "Widget", closable = TRUE,
+  insertmode = "tab-after", refwidgetID = NULL, relsize = NULL,
   content = "", ui = HTML("I am a widget!"))
 }
 \arguments{
@@ -12,9 +13,19 @@ addWidget(phosphorrProxy, id, title = "Widget", closable = TRUE,
 
 \item{id}{ID for phosphorr widget}
 
+\item{closable}{Create removable}
+
+\item{insertmode}{How should the widget be added? Options include \code{split-right}, \code{split-left},
+\code{split-bottom}, \code{split-top}, \code{tab-before}, and \code{tab-after} (default)}
+
+\item{relsize}{Relative size of widget (between 0 and 1) in relation to \code{refwidget} (or last widget
+if \code{refwidget} isn't specified)}
+
 \item{content}{Code for phosphorr widget UI}
 
 \item{ui}{Shiny UI content.  If just text, need to use HTML(...)}
+
+\item{refwidget}{Reference widget ID for \code{insertmode} action}
 }
 \value{
 phosphorrProxy
