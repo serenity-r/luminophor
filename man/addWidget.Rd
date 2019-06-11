@@ -4,13 +4,11 @@
 \alias{addWidget}
 \title{Adds a new widget to the dock}
 \usage{
-addWidget(phosphorrProxy, id, title = "Widget", closable = TRUE,
+addWidget(proxy, id, title = "Widget", closable = TRUE,
   insertmode = "tab-after", refwidgetID = NULL, relsize = NULL,
-  content = "", ui = HTML("I am a widget!"))
+  ui = HTML("I am a widget!"))
 }
 \arguments{
-\item{phosphorrProxy}{Proxy phosphorr object}
-
 \item{id}{ID for phosphorr widget}
 
 \item{closable}{Create removable}
@@ -21,9 +19,11 @@ addWidget(phosphorrProxy, id, title = "Widget", closable = TRUE,
 \item{relsize}{Relative size of widget (between 0 and 1) in relation to \code{refwidget} (or last widget
 if \code{refwidget} isn't specified)}
 
-\item{content}{Code for phosphorr widget UI}
-
 \item{ui}{Shiny UI content.  If just text, need to use HTML(...)}
+
+\item{phosphorrProxy}{Proxy phosphorr object}
+
+\item{content}{Code for phosphorr widget UI}
 
 \item{refwidget}{Reference widget ID for \code{insertmode} action}
 }

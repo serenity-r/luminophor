@@ -8,7 +8,7 @@
 phosphorr <- function(items = NULL, width = "100%", height = "72vh", elementId = NULL) {
 
   # Default options
-  options = list()
+  options = list(widgets = list())
 
   if (!is.null(items)) {
     x = list(
@@ -102,39 +102,50 @@ phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #'
 #' @return phosphorrProxy
 #' @export
-addWidget <- function(phosphorrProxy,
+addWidget <- function(proxy,
                       id,
                       title = "Widget",
                       closable = TRUE,
                       insertmode = "tab-after",
                       refwidgetID = NULL,
                       relsize = NULL,
-                      content = "",
                       ui = HTML("I am a widget!")) {
 
-  data <- list(dockID = phosphorrProxy$id,
-               widgetID = id,
-               title = title,
-               closable = closable,
-               mode = insertmode,
-               refwidgetID = refwidgetID,
-               size = relsize,
-               content = as.character(tags$div(id = id,
-                                               class = "content",
-                                               tags$div(content))
-               )
-  )
+  if (all(c("phosphorr", "htmlwidget") %in% class(proxy))) {
+    # Add widget later on render
+    proxy$x$items$widgets <- c(proxy$x$items$widgets, list(
+      list(
+        widgetID = id,
+        title = title,
+        closable = closable,
+        insertmode = insertmode,
+        refwidgetID = refwidgetID,
+        relsize = relsize,
+        ui = htmltools::doRenderTags(ui) # Convert to HTML
+      )
+    ))
+  } else {
+    # Add widget to already rendered dock
+    data <- list(dockID = proxy$id,
+                 widgetID = id,
+                 title = title,
+                 closable = closable,
+                 insertmode = insertmode,
+                 refwidgetID = refwidgetID,
+                 relsize = relsize
+    )
 
-  # Namespacing to avoid conflicts (http://deanattali.com/blog/htmlwidgets-tips/)
-  phosphorrProxy$session$sendCustomMessage("phosphorr:addWidget", data)
+    # Namespacing to avoid conflicts (http://deanattali.com/blog/htmlwidgets-tips/)
+    proxy$session$sendCustomMessage("phosphorr:addWidget", data)
 
-  insertUI(
-    selector = paste(
-      paste0("#", data$dockID),
-      paste0("#", data$widgetID),
-      "div"),
-    ui = ui
-  )
+    insertUI(
+      selector = paste(
+        paste0("#", data$dockID),
+        paste0("#", data$widgetID),
+        "div"),
+      ui = ui
+    )
+  }
 
-  return(phosphorrProxy)
+  return(proxy)
 }

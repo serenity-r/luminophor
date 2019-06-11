@@ -11,22 +11,29 @@ HTMLWidgets.widget({
     return {
 
       renderValue: function(opts) {
-
         if (dock === null) {
   	      // Create DockPanel
   	      dock = new phosphorjs.DockPanel();
 
-  	      // Attach BoxPanel to el
+  	      // Attach dock to el
   	      phosphorjs.Widget.attach(dock, $('#'+el.id).find(".phosphorr-shim")[0]);
+
+  	      // Add widgets
+  	      Shiny.unbindAll();
+  	      opts.items.widgets.forEach(function(widget) {
+  	        addWidget(
+  	          dockID = el.id,
+  	          widgetID = widget.widgetID,
+  	          title = widget.title,
+  	          closable = widget.closable,
+  	          insertmode =  widget.insertmode,
+  	          refwidgetID = widget.refwidgetID,
+  	          relsize = widget.relsize,
+  	          ui = widget.ui
+  	        );
+  	      });
+  	      Shiny.bindAll();
         }
-
-        // http://ianjgough.com/jquery/add-and-remove-stylesheets-with-jquery/
-        // Smartify this later - How do I know the 2nd is flexdash???
-        // $("head").find("link").attr("rel", "stylesheet")[0].id = "tmpl-phosphor";
-        // $("head").find("link").attr("rel", "stylesheet")[1].id = "tmpl-flexdash";
-
-        // $("#tmpl-phosphor").remove();
-        // $("#tmpl-flexdash").remove(); // +1-1 = 0.  Keeping here for reference.
       },
 
       resize: function(width, height) {
@@ -79,22 +86,17 @@ function setSize(layout, widgetID, size, dir) {
   }
 }
 
-// ---- R -> Javascript
-
-// Note:  Might want to make widget ids boxID + widgetID so can have same widgetID in different stacks.  Right now, based on best practices, items must have unique IDs, even across different boxes
-
-// Custom handler to add a new widget
-Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
+function addWidget(dockID, widgetID, title = "Widget", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, ui = null) {
   // Add widget content to DOM
-  $('#'+message.dockID).append(message.content);
+  $('#'+dockID).append('<div id="' + widgetID + '" class="content"><div>' + (ui !== null ? ui : '') + '</div></div>');
 
   // Create widget and bind content
-  var widget = new phosphorjs.Widget({node: document.getElementById(message.widgetID)});
+  var widget = new phosphorjs.Widget({node: document.getElementById(widgetID)});
 
   // Add title and make closable
-  widget.title.label = message.title;
-  widget.title.caption = message.title;
-  widget.title.closable = message.closable;
+  widget.title.label = title;
+  widget.title.caption = title;
+  widget.title.closable = closable;
 
   // Need to rebind Shiny on certain events (for now, show and resize only)
   // Also need throttling for resize:  https://shiny.rstudio.com/articles/js-dashboard.html
@@ -102,14 +104,31 @@ Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
   widget.onResize = _.debounce( function(msg) { Shiny.bindAll(this); }, 150 );
 
   // Attach widget to panel (first widget is dock)
-  dock = getDock(message.dockID);
-  var ref = (message.refwidgetID !== null ? phosphorjs.find(dock.children(), (w) => {return w.id === message.refwidgetID}) : null);
-  dock.addWidget(widget = widget, options = {mode: message.mode, ref: ref});
+  dock = getDock(dockID);
+  var ref = (refwidgetID !== null ? phosphorjs.find(dock.children(), (w) => {return w.id === refwidgetID}) : null);
+  dock.addWidget(widget = widget, options = {mode: insertmode, ref: ref});
 
   // Tricky tricky tricky
-  if (message.size !== null) {
+  if (relsize !== null) {
     var layout = dock.saveLayout();
-    setSize(layout.main, message.widgetID, message.size, (["split-top", "split-left"].includes(message.mode) ? 1 : -1));
+    setSize(layout.main, widgetID, relsize, (["split-top", "split-left"].includes(insertmode) ? 1 : -1));
     dock.restoreLayout(layout);
   }
+}
+
+// ---- R -> Javascript
+
+// Note:  Might want to make widget ids boxID + widgetID so can have same widgetID in different stacks.  Right now, based on best practices, items must have unique IDs, even across different boxes
+
+// Custom handler to add a new widget
+Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
+  addWidget(
+    dockID = message.dockID,
+    widgetID = message.widgetID,
+    title = message.title,
+    closable = message.closable,
+    insertmode =  message.insertmode,
+    refwidgetID = message.refwidgetID,
+    relsize = message.relsize);
 });
+
