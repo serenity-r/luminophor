@@ -52,9 +52,12 @@ server <- function(input, output, session) {
   output$pjsbox <- renderPhosphorr({
     phosphorr() %>%
       addWidget(id = 'widget-myslider',
+                caption = "This is my slider",
+                icon = icon("layer-group"),
                 ui = uiOutput("myslider"),
                 title = "Slider") %>%
       addWidget(id = 'widget-myplot',
+                icon = icon("image"),
                 refwidget = 'widget-myslider',
                 insertmode = "split-right",
                 relsize = 0.6,
@@ -65,28 +68,33 @@ server <- function(input, output, session) {
                 insertmode = "split-bottom",
                 relsize = 0.25,
                 ui = HTML("Code"),
-                title = "Code") %>%
+                title = "Code",
+                icon = icon("code")) %>%
       addWidget(id = "vars",
                 refwidget = paste0('widget-myslider'),
                 insertmode = "split-bottom",
                 relsize = 0.75,
                 ui = HTML("Vars"),
-                title = "Variables") %>%
+                title = "Variables",
+                icon = icon("database")) %>%
       addWidget(id = "aes",
                 refwidget = "vars",
                 insertmode = "split-right",
                 ui = HTML("Aesthetics"),
-                title = "Aesthetics") %>%
+                title = "Aesthetics",
+                icon = icon("paint-brush")) %>%
       addWidget(id = "messages",
                 refwidget = "code",
                 insertmode = "tab-after",
                 ui = HTML("Messages"),
-                title = "Messages") %>%
+                title = "Messages",
+                icon = icon("info")) %>%
       addWidget(id = "help",
                 refwidget = "messages",
                 insertmode = "tab-after",
                 ui = HTML("Help"),
-                title = "Help")
+                title = "Help",
+                icon = icon("question"))
   })
 
   output$myslider <- renderUI({

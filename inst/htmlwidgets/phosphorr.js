@@ -25,6 +25,8 @@ HTMLWidgets.widget({
   	          dockID = el.id,
   	          widgetID = widget.widgetID,
   	          title = widget.title,
+  	          caption = widget.caption,
+  	          iconClass = widget.iconClass,
   	          closable = widget.closable,
   	          insertmode =  widget.insertmode,
   	          refwidgetID = widget.refwidgetID,
@@ -86,7 +88,7 @@ function setSize(layout, widgetID, size, dir) {
   }
 }
 
-function addWidget(dockID, widgetID, title = "Widget", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, ui = null) {
+function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconClass = "", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, ui = null) {
   // Add widget content to DOM
   $('#'+dockID).append('<div id="' + widgetID + '" class="content"><div>' + (ui !== null ? ui : '') + '</div></div>');
 
@@ -95,7 +97,8 @@ function addWidget(dockID, widgetID, title = "Widget", closable = true, insertmo
 
   // Add title and make closable
   widget.title.label = title;
-  widget.title.caption = title;
+  widget.title.caption = caption;
+  widget.title.iconClass = iconClass;
   widget.title.closable = closable;
 
   // Need to rebind Shiny on certain events (for now, show and resize only)
@@ -126,6 +129,8 @@ Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
     dockID = message.dockID,
     widgetID = message.widgetID,
     title = message.title,
+    caption = message.caption,
+    iconClass = message.iconClass,
     closable = message.closable,
     insertmode =  message.insertmode,
     refwidgetID = message.refwidgetID,

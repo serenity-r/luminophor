@@ -4,12 +4,16 @@
 \alias{addWidget}
 \title{Adds a new widget to the dock}
 \usage{
-addWidget(proxy, id, title = "Widget", closable = TRUE,
-  insertmode = "tab-after", refwidgetID = NULL, relsize = NULL,
-  ui = HTML("I am a widget!"))
+addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
+  closable = TRUE, insertmode = "tab-after", refwidgetID = NULL,
+  relsize = NULL, ui = HTML("I am a widget!"))
 }
 \arguments{
 \item{id}{ID for phosphorr widget}
+
+\item{title}{Title for phosphorr widget}
+
+\item{caption}{Caption for phosphorr widget}
 
 \item{closable}{Create removable}
 
@@ -22,6 +26,8 @@ if \code{refwidget} isn't specified)}
 \item{ui}{Shiny UI content.  If just text, need to use HTML(...)}
 
 \item{phosphorrProxy}{Proxy phosphorr object}
+
+\item{iconClass}{Class for icon (e.g. 'fa fa-eye')}
 
 \item{content}{Code for phosphorr widget UI}
 

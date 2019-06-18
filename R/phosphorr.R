@@ -27,8 +27,6 @@ phosphorr <- function(items = NULL, width = "100%", height = "72vh", elementId =
     width = width,
     height = height,
     package = 'phosphorr',
-    dependencies = list(rmarkdown::html_dependency_jquery(),
-                        rmarkdown::html_dependency_font_awesome()), # Widgets don't load these automatically like Shiny
     elementId = elementId
   )
 }
@@ -91,6 +89,9 @@ phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #'
 #' @param phosphorrProxy Proxy phosphorr object
 #' @param id ID for phosphorr widget
+#' @param title Title for phosphorr widget
+#' @param caption Caption for phosphorr widget
+#' @param icon Font Awesome icon (specified via the \code{icon} function)
 #' @param closable Create removable
 #' @param content Code for phosphorr widget UI
 #' @param insertmode How should the widget be added? Options include \code{split-right}, \code{split-left},
@@ -105,11 +106,16 @@ phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 addWidget <- function(proxy,
                       id,
                       title = "Widget",
+                      caption = "Widget",
+                      icon = "",
                       closable = TRUE,
                       insertmode = "tab-after",
                       refwidgetID = NULL,
                       relsize = NULL,
                       ui = HTML("I am a widget!")) {
+
+  # Process icon
+  iconClass <- ifelse(class(icon) == "shiny.tag", icon$attribs$class, icon)
 
   if (all(c("phosphorr", "htmlwidget") %in% class(proxy))) {
     # Add widget later on render
@@ -117,6 +123,8 @@ addWidget <- function(proxy,
       list(
         widgetID = id,
         title = title,
+        caption = caption,
+        iconClass = iconClass,
         closable = closable,
         insertmode = insertmode,
         refwidgetID = refwidgetID,
@@ -129,6 +137,8 @@ addWidget <- function(proxy,
     data <- list(dockID = proxy$id,
                  widgetID = id,
                  title = title,
+                 caption = caption,
+                 iconClass = iconClass,
                  closable = closable,
                  insertmode = insertmode,
                  refwidgetID = refwidgetID,
