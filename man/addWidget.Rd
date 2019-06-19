@@ -6,7 +6,7 @@
 \usage{
 addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
   closable = TRUE, insertmode = "tab-after", refwidgetID = NULL,
-  relsize = NULL, ui = HTML("I am a widget!"))
+  relsize = NULL, header = NULL, body = HTML("I am a widget!"))
 }
 \arguments{
 \item{id}{ID for phosphorr widget}
@@ -14,6 +14,8 @@ addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
 \item{title}{Title for phosphorr widget}
 
 \item{caption}{Caption for phosphorr widget}
+
+\item{icon}{Font Awesome icon (specified via the \code{icon} function)}
 
 \item{closable}{Create removable}
 
@@ -23,11 +25,11 @@ addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
 \item{relsize}{Relative size of widget (between 0 and 1) in relation to \code{refwidget} (or last widget
 if \code{refwidget} isn't specified)}
 
-\item{ui}{Shiny UI content.  If just text, need to use HTML(...)}
+\item{header}{UI header content.  Useful for icons and menu items}
+
+\item{body}{UI body content.  If just text, need to use HTML(...)}
 
 \item{phosphorrProxy}{Proxy phosphorr object}
-
-\item{iconClass}{Class for icon (e.g. 'fa fa-eye')}
 
 \item{content}{Code for phosphorr widget UI}
 

@@ -57,40 +57,40 @@ server <- function(input, output, session) {
     observe({
       phosphorrProxy("pjsbox") %>%
         addWidget(id = 'widget-myslider',
-                  ui = sliderInput('myslider', "Number of observations:", 1, 100, 50),
+                  body = sliderInput('myslider', "Number of observations:", 1, 100, 50),
                   title = "Slider") %>%
         addWidget(id = 'widget-myplot',
                   refwidget = 'widget-myslider',
                   insertmode = "split-right",
                   relsize = 0.6,
-                  ui = plotOutput('myplot'),
+                  body = plotOutput('myplot'),
                   title = "Histogram") %>%
         addWidget(id = "code",
                   refwidget = paste0('widget-myplot'),
                   insertmode = "split-bottom",
                   relsize = 0.25,
-                  ui = HTML("Code"),
+                  body = HTML("Code"),
                   title = "Code") %>%
         addWidget(id = "vars",
                   refwidget = paste0('widget-myslider'),
                   insertmode = "split-bottom",
                   relsize = 0.75,
-                  ui = HTML("Vars"),
+                  body = HTML("Vars"),
                   title = "Variables") %>%
         addWidget(id = "aes",
                   refwidget = "vars",
                   insertmode = "split-right",
-                  ui = HTML("Aesthetics"),
+                  body = HTML("Aesthetics"),
                   title = "Aesthetics") %>%
         addWidget(id = "messages",
                   refwidget = "code",
                   insertmode = "tab-after",
-                  ui = HTML("Messages"),
+                  body = HTML("Messages"),
                   title = "Messages") %>%
         addWidget(id = "help",
                   refwidget = "messages",
                   insertmode = "tab-after",
-                  ui = HTML("Help"),
+                  body = HTML("Help"),
                   title = "Help")
     })
   })

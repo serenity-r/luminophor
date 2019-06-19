@@ -31,7 +31,8 @@ HTMLWidgets.widget({
   	          insertmode =  widget.insertmode,
   	          refwidgetID = widget.refwidgetID,
   	          relsize = widget.relsize,
-  	          ui = widget.ui
+  	          header = widget.header,
+  	          body = widget.body
   	        );
   	      });
   	      Shiny.bindAll();
@@ -88,9 +89,9 @@ function setSize(layout, widgetID, size, dir) {
   }
 }
 
-function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconClass = "", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, ui = null) {
+function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconClass = "", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, header = "", body = null) {
   // Add widget content to DOM
-  $('#'+dockID).append('<div id="' + widgetID + '" class="content"><div>' + (ui !== null ? ui : '') + '</div></div>');
+  $('#'+dockID).append('<div id="' + widgetID + '" class="widget-content"><div class="widget-header' + (header !== '' ? '' : ' hidden') + '">' + header + '</div><div class="widget-body">' + (body !== null ? body : '') + '</div></div>');
 
   // Create widget and bind content
   var widget = new phosphorjs.Widget({node: document.getElementById(widgetID)});

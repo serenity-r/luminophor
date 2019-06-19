@@ -99,7 +99,8 @@ phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' @param refwidget Reference widget ID for \code{insertmode} action
 #' @param relsize Relative size of widget (between 0 and 1) in relation to \code{refwidget} (or last widget
 #'   if \code{refwidget} isn't specified)
-#' @param ui Shiny UI content.  If just text, need to use HTML(...)
+#' @param header UI header content.  Useful for icons and menu items
+#' @param body UI body content.  If just text, need to use HTML(...)
 #'
 #' @return phosphorrProxy
 #' @export
@@ -112,7 +113,8 @@ addWidget <- function(proxy,
                       insertmode = "tab-after",
                       refwidgetID = NULL,
                       relsize = NULL,
-                      ui = HTML("I am a widget!")) {
+                      header = NULL,
+                      body = HTML("I am a widget!")) {
 
   # Process icon
   iconClass <- ifelse(class(icon) == "shiny.tag", icon$attribs$class, icon)
@@ -129,7 +131,8 @@ addWidget <- function(proxy,
         insertmode = insertmode,
         refwidgetID = refwidgetID,
         relsize = relsize,
-        ui = htmltools::doRenderTags(ui) # Convert to HTML
+        header = htmltools::doRenderTags(header), # Convert to HTML
+        body = htmltools::doRenderTags(body) # Convert to HTML
       )
     ))
   } else {
@@ -152,8 +155,16 @@ addWidget <- function(proxy,
       selector = paste(
         paste0("#", data$dockID),
         paste0("#", data$widgetID),
-        "div"),
-      ui = ui
+        ".widget-header"),
+      ui = header
+    )
+
+    insertUI(
+      selector = paste(
+        paste0("#", data$dockID),
+        paste0("#", data$widgetID),
+        ".widget-body"),
+      ui = body
     )
   }
 
