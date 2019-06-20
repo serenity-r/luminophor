@@ -61,7 +61,6 @@ HTMLWidgets.widget({
       },
 
       maximizeWidget: function(widget) {
-        console.log(widget);
         tmpLayout = dock.saveLayout();
         dock.mode = 'single-document';
         dock.activateWidget(widget);
