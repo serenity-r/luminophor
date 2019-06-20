@@ -7,6 +7,8 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
 
     var dock = null;
+    var initLayout = null;
+    var tmpLayout = null;
 
     return {
 
@@ -36,6 +38,9 @@ HTMLWidgets.widget({
   	        );
   	      });
   	      Shiny.bindAll();
+
+  	      // Save layout
+  	      initLayout = dock.saveLayout();
         }
       },
 
@@ -43,10 +48,31 @@ HTMLWidgets.widget({
         dock.update();
       },
 
-      // Give access to box if anyone needs it on the outside
-      // Using in console:  HTMLWidgets.find(".phosphorr").getBox()
       getDock: function() {
         return dock;
+      },
+
+      getLayout: function(init = false) {
+        return (init ? initLayout : dock.saveLayout());
+      },
+
+      restoreLayout: function() {
+        dock.restoreLayout(initLayout);
+      },
+
+      maximizeWidget: function(widget) {
+        console.log(widget);
+        tmpLayout = dock.saveLayout();
+        dock.mode = 'single-document';
+        dock.activateWidget(widget);
+      },
+
+      minimizeWidget: function(widget) {
+        if (tmpLayout !== null) {
+          dock.mode = 'multiple-document';
+          dock.restoreLayout(tmpLayout);
+          tmpLayout = null;
+        }
       }
     };
   }
@@ -60,7 +86,7 @@ function getDock(id) {
 
   var phosphorrObj = null;
   if( typeof(htmlWidgetsObj) !== "undefined"){
-    // Use the getBox method we created to get the underlying gridstack
+    // Use the getDock method we created to get the underlying gridstack
     phosphorrObj = htmlWidgetsObj.getDock();
   }
 
@@ -87,6 +113,20 @@ function setSize(layout, widgetID, size, dir) {
       layout.sizes[ind+dir] = total*(1-size);
     }
   }
+}
+
+function maximizeWidget(dockID, widgetID) {
+  var dock = getDock(dockID);
+  var widget = phosphorjs.find(dock.widgets(), (w) => {return w.id === widgetID});
+
+  HTMLWidgets.find("#" + dockID).maximizeWidget(widget);
+}
+
+function minimizeWidget(dockID, widgetID) {
+  var dock = getDock(dockID);
+  var widget = phosphorjs.find(dock.widgets(), (w) => {return w.id === widgetID});
+
+  HTMLWidgets.find("#" + dockID).minimizeWidget(widget);
 }
 
 function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconClass = "", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, header = "", body = null) {
@@ -138,3 +178,18 @@ Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
     relsize = message.relsize);
 });
 
+// Custom handler to add a new widget
+Shiny.addCustomMessageHandler('phosphorr:maximizeWidget', function(message) {
+  maximizeWidget(
+    dockID = message.dockID,
+    widgetID = message.widgetID
+  );
+});
+
+// Custom handler to add a new widget
+Shiny.addCustomMessageHandler('phosphorr:minimizeWidget', function(message) {
+  minimizeWidget(
+    dockID = message.dockID,
+    widgetID = message.widgetID
+  );
+});

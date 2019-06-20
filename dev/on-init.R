@@ -31,6 +31,20 @@ ui <- dashboardPage(
       margin-top: 0.5rem;
       margin-right: 4px;
       margin-left: 2px;
+    }
+
+    .widget-header .form-group {
+      float: right;
+      margin-right: 0;
+    }
+
+    .pretty {
+      margin-right: 0;
+      line-height: 1.6rem;
+    }
+
+    .pretty.p-toggle .state.p-off .icon {
+      color: #000;
     }"),
     tabItems(
       # First tab content
@@ -72,14 +86,14 @@ server <- function(input, output, session) {
                 body = plotOutput('myplot'),
                 title = "Histogram") %>%
       addWidget(id = "code",
-                refwidget = paste0('widget-myplot'),
+                refwidget = 'widget-myplot',
                 insertmode = "split-bottom",
                 relsize = 0.25,
                 body = HTML("Code"),
                 title = "Code",
                 icon = icon("code")) %>%
       addWidget(id = "vars",
-                refwidget = paste0('widget-myslider'),
+                refwidget = 'widget-myslider',
                 insertmode = "split-bottom",
                 relsize = 0.75,
                 body = HTML("Vars"),
@@ -110,10 +124,30 @@ server <- function(input, output, session) {
   })
 
   output$myheader <- renderUI({
-    tagList(
-      icon("eye"),
-      icon("database")
+    prettyToggle(
+      inputId = "maximize",
+      label_on = "",
+      label_off = "",
+      status_on = "default",
+      status_off = "default",
+      outline = TRUE,
+      plain = TRUE,
+      icon_on = icon("window-minimize"),
+      icon_off = icon("window-maximize"),
+      inline = TRUE
     )
+  })
+
+  observeEvent(input$maximize, {
+    message <- list(
+      dockID = "pjsbox",
+      widgetID = "widget-myslider"
+    )
+    if (input$maximize) {
+      session$sendCustomMessage("phosphorr:maximizeWidget", message)
+    } else {
+      session$sendCustomMessage("phosphorr:minimizeWidget", message)
+    }
   })
 
   output$myplot <- renderPlot({
