@@ -82,7 +82,12 @@ server <- function(input, output, session) {
                 refwidget = 'widget-myslider',
                 insertmode = "split-right",
                 relsize = 0.6,
-                ui = plotOutput('myplot'),
+                ui = tagList(
+                  widgetHeader(),
+                  widgetBody(
+                    plotOutput('myplot')
+                  )
+                ),
                 title = "Histogram") %>%
       addWidget(id = "code",
                 refwidget = 'widget-myplot',

@@ -149,8 +149,8 @@ addWidget <- function(proxy,
   server <- ((class(ui) == "shiny.tag") && (ui$attribs$class == "shiny-html-output"))
 
   # Process ui - UI can be (1) uiOutput, (2) shiny.tag.list as header and body, (3) widget body, or (4) general ui to be wrapped
-  if ((class(ui) == "shiny.tag.list") && ((tmp[[1]]$attribs$class != "widget-header") || (tmp[[2]]$attribs$class != "widget-body"))) {
-    stop("A shiny tag list must be in the form of a widget header and body (in that order).")
+  if ((class(ui) == "shiny.tag.list") && ((ui[[1]]$attribs$class != "widget-header") || (ui[[2]]$attribs$class != "widget-body"))) {
+    ui <- widgetBody(ui)
   }
 
   # Wrap in widget body if appropriate
