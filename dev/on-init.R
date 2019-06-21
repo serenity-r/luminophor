@@ -25,7 +25,7 @@ ui <- dashboardPage(
     )
   ),
   dashboardBody(
-    inlineCSS("
+    shinyjs::inlineCSS("
     .widget-header i {
       float: right;
       margin-top: 0.5rem;
@@ -75,67 +75,72 @@ server <- function(input, output, session) {
       addWidget(id = 'widget-myslider',
                 caption = "This is my slider",
                 icon = icon("layer-group"),
-                header = uiOutput("myheader"),
-                body = uiOutput("myslider"),
+                ui = uiOutput('widget-myslider'),
                 title = "Slider") %>%
       addWidget(id = 'widget-myplot',
                 icon = icon("image"),
                 refwidget = 'widget-myslider',
                 insertmode = "split-right",
                 relsize = 0.6,
-                body = plotOutput('myplot'),
+                ui = plotOutput('myplot'),
                 title = "Histogram") %>%
       addWidget(id = "code",
                 refwidget = 'widget-myplot',
                 insertmode = "split-bottom",
                 relsize = 0.25,
-                body = HTML("Code"),
+                ui = HTML("Code"),
                 title = "Code",
                 icon = icon("code")) %>%
       addWidget(id = "vars",
                 refwidget = 'widget-myslider',
                 insertmode = "split-bottom",
                 relsize = 0.75,
-                body = HTML("Vars"),
+                ui = HTML("Vars"),
                 title = "Variables",
                 icon = icon("database")) %>%
       addWidget(id = "aes",
                 refwidget = "vars",
                 insertmode = "split-right",
-                body = HTML("Aesthetics"),
+                ui = HTML("Aesthetics"),
                 title = "Aesthetics",
                 icon = icon("paint-brush")) %>%
       addWidget(id = "messages",
                 refwidget = "code",
                 insertmode = "tab-after",
-                body = HTML("Messages"),
+                ui = HTML("Messages"),
                 title = "Messages",
                 icon = icon("info")) %>%
       addWidget(id = "help",
                 refwidget = "messages",
                 insertmode = "tab-after",
-                body = HTML("Help"),
+                ui = HTML("Help"),
                 title = "Help",
                 icon = icon("question"))
   })
 
-  output$myslider <- renderUI({
-    sliderInput('myslider', "Number of observations:", 1, 100, 50)
+  output$`widget-myslider` <- renderUI({
+    tagList(
+      widgetHeader(
+        shinyWidgets::prettyToggle(
+          inputId = "maximize",
+          label_on = "",
+          label_off = "",
+          status_on = "default",
+          status_off = "default",
+          outline = TRUE,
+          plain = TRUE,
+          icon_on = icon("window-minimize"),
+          icon_off = icon("window-maximize"),
+          inline = TRUE
+        )
+      ),
+      widgetBody(
+        sliderInput('myslider', "Number of observations:", 1, 100, 50)
+      )
+    )
   })
 
   output$myheader <- renderUI({
-    prettyToggle(
-      inputId = "maximize",
-      label_on = "",
-      label_off = "",
-      status_on = "default",
-      status_off = "default",
-      outline = TRUE,
-      plain = TRUE,
-      icon_on = icon("window-minimize"),
-      icon_off = icon("window-maximize"),
-      inline = TRUE
-    )
   })
 
   observeEvent(input$maximize, {

@@ -6,7 +6,7 @@
 \usage{
 addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
   closable = TRUE, insertmode = "tab-after", refwidgetID = NULL,
-  relsize = NULL, header = NULL, body = HTML("I am a widget!"))
+  relsize = NULL, ui = HTML("I am a widget!"))
 }
 \arguments{
 \item{id}{ID for phosphorr widget}
@@ -25,9 +25,7 @@ addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
 \item{relsize}{Relative size of widget (between 0 and 1) in relation to \code{refwidget} (or last widget
 if \code{refwidget} isn't specified)}
 
-\item{header}{UI header content.  Useful for icons and menu items}
-
-\item{body}{UI body content.  If just text, need to use HTML(...)}
+\item{ui}{UI content.  If just text, need to use HTML(...)}
 
 \item{phosphorrProxy}{Proxy phosphorr object}
 

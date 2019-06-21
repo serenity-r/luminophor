@@ -33,8 +33,8 @@ HTMLWidgets.widget({
   	          insertmode =  widget.insertmode,
   	          refwidgetID = widget.refwidgetID,
   	          relsize = widget.relsize,
-  	          header = widget.header,
-  	          body = widget.body
+  	          server = widget.server,
+  	          ui = widget.ui
   	        );
   	      });
   	      Shiny.bindAll();
@@ -128,9 +128,9 @@ function minimizeWidget(dockID, widgetID) {
   HTMLWidgets.find("#" + dockID).minimizeWidget(widget);
 }
 
-function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconClass = "", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, header = "", body = null) {
+function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconClass = "", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, server = false, ui = null) {
   // Add widget content to DOM
-  $('#'+dockID).append('<div id="' + widgetID + '" class="widget-content"><div class="widget-header' + (header !== '' ? '' : ' hidden') + '">' + header + '</div><div class="widget-body">' + (body !== null ? body : '') + '</div></div>');
+  $('#'+dockID).append('<div id="' + widgetID + '" class="widget-content' + (server ? ' shiny-html-output' : '') + '">' + (ui !== null ? ui : '') + '</div>');
 
   // Create widget and bind content
   var widget = new phosphorjs.Widget({node: document.getElementById(widgetID)});
@@ -174,10 +174,11 @@ Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
     closable = message.closable,
     insertmode =  message.insertmode,
     refwidgetID = message.refwidgetID,
-    relsize = message.relsize);
+    relsize = message.relsize,
+    server = message.server);
 });
 
-// Custom handler to add a new widget
+// Custom handler to maximize a widget
 Shiny.addCustomMessageHandler('phosphorr:maximizeWidget', function(message) {
   maximizeWidget(
     dockID = message.dockID,
@@ -185,7 +186,7 @@ Shiny.addCustomMessageHandler('phosphorr:maximizeWidget', function(message) {
   );
 });
 
-// Custom handler to add a new widget
+// Custom handler to minimize a widget
 Shiny.addCustomMessageHandler('phosphorr:minimizeWidget', function(message) {
   minimizeWidget(
     dockID = message.dockID,
