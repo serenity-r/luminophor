@@ -59,40 +59,40 @@ server <- function(input, output, session) {
 
     phosphorrProxy("pjsbox") %>%
       addWidget(id = paste0('widget', ns('slider')),
-                body = sliderInput(ns('slider'), "Number of observations:", 1, 100, 50),
+                ui = sliderInput(ns('slider'), "Number of observations:", 1, 100, 50),
                 title = "Slider") %>%
       addWidget(id = paste0('widget-', ns('plot')),
                 refwidget = paste0('widget', ns('slider')),
                 insertmode = "split-right",
                 relsize = 0.6,
-                body = plotOutput(ns('plot')),
+                ui = plotOutput(ns('plot')),
                 title = "Histogram") %>%
       addWidget(id = "code",
                 refwidget = paste0('widget-', ns('plot')),
                 insertmode = "split-bottom",
                 relsize = 0.25,
-                body = HTML("Code"),
+                ui = HTML("Code"),
                 title = "Code") %>%
       addWidget(id = "vars",
                 refwidget = paste0('widget', ns('slider')),
                 insertmode = "split-bottom",
                 relsize = 0.75,
-                body = HTML("Vars"),
+                ui = HTML("Vars"),
                 title = "Variables") %>%
       addWidget(id = "aes",
                 refwidget = "vars",
                 insertmode = "split-right",
-                body = HTML("Aesthetics"),
+                ui = HTML("Aesthetics"),
                 title = "Aesthetics") %>%
       addWidget(id = "messages",
                 refwidget = "code",
                 insertmode = "tab-after",
-                body = HTML("Messages"),
+                ui = HTML("Messages"),
                 title = "Messages") %>%
       addWidget(id = "help",
                 refwidget = "messages",
                 insertmode = "tab-after",
-                body = HTML("Help"),
+                ui = HTML("Help"),
                 title = "Help")
 
     output[[ns('plot')]] <- renderPlot({

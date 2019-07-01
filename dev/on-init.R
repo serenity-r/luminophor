@@ -45,6 +45,24 @@ ui <- dashboardPage(
 
     .pretty.p-toggle .state.p-off .icon {
       color: #000;
+    }
+
+.widget-content.p-Widget > .widget-body {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 8px;
+}
+
+.widget-content.p-Widget > .widget-header {
+  min-height: 24px;
+  max-height: 24px;
+  border-bottom: 1px solid #C0C0C0;
+}
+
+    .widget-content {
+      display: flex;
+      flex-direction: column;
+      padding: 0 !important;
     }"),
     tabItems(
       # First tab content
@@ -69,6 +87,19 @@ ui <- dashboardPage(
 server <- function(input, output, session) {
   set.seed(122)
   histdata <- rnorm(500)
+
+  widgetHeader <- function(..., disable = FALSE, .list = NULL)
+  {
+    items <- c(list(...), .list)
+    tags$header(class = "widget-header", style = if (disable)
+      "display: none;", items)
+  }
+
+  widgetBody <- function(..., .list = NULL)
+  {
+    items <- c(list(...), .list)
+    tags$section(class = "widget-body", items)
+  }
 
   output$pjsbox <- renderPhosphorr({
     phosphorr() %>%
@@ -100,25 +131,25 @@ server <- function(input, output, session) {
                 refwidget = 'widget-myslider',
                 insertmode = "split-bottom",
                 relsize = 0.75,
-                ui = HTML("Vars"),
+                ui = widgetBody(HTML("Vars")),
                 title = "Variables",
                 icon = icon("database")) %>%
       addWidget(id = "aes",
                 refwidget = "vars",
                 insertmode = "split-right",
-                ui = HTML("Aesthetics"),
+                ui = widgetBody(HTML("Aesthetics")),
                 title = "Aesthetics",
                 icon = icon("paint-brush")) %>%
       addWidget(id = "messages",
                 refwidget = "code",
                 insertmode = "tab-after",
-                ui = HTML("Messages"),
+                ui = widgetBody(HTML("Messages")),
                 title = "Messages",
                 icon = icon("info")) %>%
       addWidget(id = "help",
                 refwidget = "messages",
                 insertmode = "tab-after",
-                ui = HTML("Help"),
+                ui = widgetBody(HTML("Help")),
                 title = "Help",
                 icon = icon("question"))
   })

@@ -69,35 +69,6 @@ phosphorr_html <- function(id, style, class, ...) {
   )
 }
 
-
-#' Create a header for a phosphorr widget
-#'
-#' @param ... Items to put in the header
-#' @param disable If TRUE, don't display the header bar.
-#' @param .list An optional list containing items to put in the header. Same as the ... arguments, but in list format. This can be useful when working with programmatically generated items.
-#'
-#' @return shiny.tag
-#' @export
-widgetHeader <- function(..., disable = FALSE, .list = NULL)
-{
-  items <- c(list(...), .list)
-  tags$header(class = "widget-header", style = if (disable)
-    "display: none;", items)
-}
-
-#' Create a body for a phosphorr widget
-#'
-#' @param ... Items to put in the header
-#' @param .list An optional list containing items to put in the header. Same as the ... arguments, but in list format. This can be useful when working with programmatically generated items.
-#'
-#' @return shiny.tag
-#' @export
-widgetBody <- function(..., .list = NULL)
-{
-  items <- c(list(...), .list)
-  tags$section(class = "widget-body", items)
-}
-
 # API ---
 
 #' Create a phosphorr proxy object
@@ -147,18 +118,6 @@ addWidget <- function(proxy,
   iconClass <- ifelse(class(icon) == "shiny.tag", icon$attribs$class, icon)
 
   server <- ((class(ui) == "shiny.tag") && (ui$attribs$class == "shiny-html-output"))
-
-  # Process ui - UI can be (1) uiOutput, (2) shiny.tag.list as header and body, (3) widget body, or (4) general ui to be wrapped
-  if ((class(ui) == "shiny.tag.list") && ((ui[[1]]$attribs$class != "widget-header") || (ui[[2]]$attribs$class != "widget-body"))) {
-    ui <- widgetBody(ui)
-  }
-
-  # Wrap in widget body if appropriate
-  if (any(class(ui) %in% c("html", "character")) ||
-      ((class(ui) == "shiny.tag") && !any(ui$attribs$class %in% c("widget-body", "shiny-html-output")))) {
-    ui <- widgetBody(ui)
-  }
-
   if (server) {
     # Trigger warning if uiOutput and id doesn't match widgetID
     if (ui$attribs$id != id) {
@@ -203,8 +162,8 @@ addWidget <- function(proxy,
     insertUI(
       selector = paste(
         paste0("#", data$dockID),
-        paste0("#", data$widgetID),
-        '.widget-content'),
+        paste0("#", data$widgetID, '.widget-content')
+      ),
       ui = ui
     )
   }

@@ -10,7 +10,8 @@ Description: HTMLWidget implementation of PhosphorJS
 Depends: R (>= 3.4.0)
 Imports:
     shiny,
-    htmlwidgets    
+    htmlwidgets,
+    htmltools
 URL: https://github.com/serenity-r/phosphorr
 License: BSD 3 + file LICENSE
 Encoding: UTF-8
