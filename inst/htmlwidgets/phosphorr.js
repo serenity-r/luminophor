@@ -21,7 +21,6 @@ HTMLWidgets.widget({
   	      phosphorjs.Widget.attach(dock, $('#'+el.id).find(".phosphorr-shim")[0]);
 
   	      // Add widgets
-  	      Shiny.unbindAll();
   	      opts.items.widgets.forEach(function(widget) {
   	        addWidget(
   	          dockID = el.id,
@@ -37,7 +36,6 @@ HTMLWidgets.widget({
   	          ui = widget.ui
   	        );
   	      });
-  	      Shiny.bindAll();
 
   	      // Save layout
   	      initLayout = dock.saveLayout();
@@ -129,6 +127,8 @@ function minimizeWidget(dockID, widgetID) {
 }
 
 function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconClass = "", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, server = false, ui = null) {
+  Shiny.unbindAll($('#'+dockID)[0]);
+
   // Add widget content to DOM
   $('#'+dockID).append('<div id="' + widgetID + '" class="widget-content' + (server ? ' shiny-html-output' : '') + '">' + (ui !== null ? ui : '') + '</div>');
 
@@ -157,6 +157,8 @@ function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconC
     setSize(layout.main, widgetID, relsize, (["split-top", "split-left"].includes(insertmode) ? 1 : -1));
     dock.restoreLayout(layout);
   }
+
+  Shiny.bindAll($('#'+dockID)[0]);
 }
 
 // ---- R -> Javascript
