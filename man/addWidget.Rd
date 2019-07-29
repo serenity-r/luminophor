@@ -9,6 +9,8 @@ addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
   relsize = NULL, ui = HTML("I am a widget!"))
 }
 \arguments{
+\item{proxy}{Proxy phosphorr object}
+
 \item{id}{ID for phosphorr widget}
 
 \item{title}{Title for phosphorr widget}
@@ -26,8 +28,6 @@ addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
 if \code{refwidget} isn't specified)}
 
 \item{ui}{UI content.  If just text, need to use HTML(...)}
-
-\item{phosphorrProxy}{Proxy phosphorr object}
 
 \item{content}{Code for phosphorr widget UI}
 

@@ -50,6 +50,11 @@ HTMLWidgets.widget({
         return dock;
       },
 
+      close: function() {
+        dock.close();
+        dock = null;
+      },
+
       getLayout: function(init = false) {
         return (init ? initLayout : dock.saveLayout());
       },
@@ -70,6 +75,14 @@ HTMLWidgets.widget({
           dock.restoreLayout(tmpLayout);
           tmpLayout = null;
         }
+      },
+
+      removeWidgets: function(widgets) {
+        widgets.forEach(widget => {
+          Shiny.unbindAll($('#'+widget.id)[0]);
+          widget.close();
+          Shiny.bindAll($('#'+widget.id)[0]);
+        });
       }
     };
   }
@@ -116,14 +129,23 @@ function maximizeWidget(dockID, widgetID) {
   var dock = getDock(dockID);
   var widget = phosphorjs.find(dock.widgets(), (w) => {return w.id === widgetID});
 
-  HTMLWidgets.find("#" + dockID).maximizeWidget(widget);
+  HTMLWidgets.find('#'+dockID).maximizeWidget(widget);
 }
 
 function minimizeWidget(dockID, widgetID) {
   var dock = getDock(dockID);
   var widget = phosphorjs.find(dock.widgets(), (w) => {return w.id === widgetID});
 
-  HTMLWidgets.find("#" + dockID).minimizeWidget(widget);
+  HTMLWidgets.find('#'+dockID).minimizeWidget(widget);
+}
+
+function removeWidgets(dockID, widgetIDs, all) {
+  var dock = getDock(dockID);
+  var widgets = phosphorjs.toArray(dock.widgets());
+  if (!all) {
+    widgets = phosphorjs.toArray(phosphorjs.filter(widgets, widget => { return(widgetIDs.includes(widget.id)) }));
+  }
+  HTMLWidgets.find('#'+dockID).removeWidgets(widgets);
 }
 
 function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconClass = "", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, server = false, ui = null) {
@@ -193,5 +215,14 @@ Shiny.addCustomMessageHandler('phosphorr:minimizeWidget', function(message) {
   minimizeWidget(
     dockID = message.dockID,
     widgetID = message.widgetID
+  );
+});
+
+// Custom handler to remove a widget
+Shiny.addCustomMessageHandler('phosphorr:removeWidgets', function(message) {
+  removeWidgets(
+    dockID = message.dockID,
+    widgetIDs = message.widgetIDs,
+    all = message.all
   );
 });

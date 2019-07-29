@@ -180,14 +180,10 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$maximize, {
-    message <- list(
-      dockID = "pjsbox",
-      widgetID = "widget-myslider"
-    )
     if (input$maximize) {
-      session$sendCustomMessage("phosphorr:maximizeWidget", message)
+      phosphorrProxy("pjsbox") %>% maximizeWidget("widget-myslider")
     } else {
-      session$sendCustomMessage("phosphorr:minimizeWidget", message)
+      phosphorrProxy("pjsbox") %>% minimizeWidget("widget-myslider")
     }
   })
 

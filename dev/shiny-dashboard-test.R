@@ -23,7 +23,8 @@ ui <- dashboardPage(
       menuItem("Pipeline", tabName = "pipeline", icon = icon("sitemap")),
       menuItem("Code", tabName = "code", icon = icon("code"))
     ),
-    actionButton("btn","Create widgets")
+    actionButton("btn","Create widgets"),
+    actionButton("remove_btn","Remove tabbed widgets")
   ),
   dashboardBody(
     tabItems(
@@ -98,6 +99,10 @@ server <- function(input, output, session) {
     output[[ns('plot')]] <- renderPlot({
       mydata <- histdata[seq_len(input[[ns('slider')]])]
       hist(mydata)
+    })
+
+    observeEvent(input$remove_btn, {
+      phosphorrProxy("pjsbox") %>% removeWidgets(c("code", "help", "messages"))
     })
   })
 }

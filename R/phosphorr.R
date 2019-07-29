@@ -87,7 +87,7 @@ phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 
 #' Adds a new widget to the dock
 #'
-#' @param phosphorrProxy Proxy phosphorr object
+#' @param proxy Proxy phosphorr object
 #' @param id ID for phosphorr widget
 #' @param title Title for phosphorr widget
 #' @param caption Caption for phosphorr widget
@@ -166,6 +166,70 @@ addWidget <- function(proxy,
       ),
       ui = ui
     )
+  }
+
+  return(proxy)
+}
+
+#' Maximize a widget in the dock
+#'
+#' @param proxy Proxy phosphorr object
+#' @param widgetId ID for phosphorr widget
+#'
+#' @return phosphorrProxy
+#' @export
+maximizeWidget <- function(proxy,
+                           widgetId) {
+  if (all(c("phosphorr", "htmlwidget") %in% class(proxy))) {
+    stop("Maximizing widgets can only occur after render.")
+  } else {
+    data <- list(dockID = proxy$id, widgetID = widgetId)
+    proxy$session$sendCustomMessage("phosphorr:maximizeWidget", data)
+  }
+
+  return(proxy)
+}
+
+#' Minimize a widget in the dock
+#'
+#' @param proxy Proxy phosphorr object
+#' @param widgetId ID for phosphorr widget
+#'
+#' @return phosphorrProxy
+#' @export
+minimizeWidget <- function(proxy,
+                           widgetId) {
+  if (all(c("phosphorr", "htmlwidget") %in% class(proxy))) {
+    stop("Minimizing widgets can only occur after render.")
+  } else {
+    data <- list(dockID = proxy$id, widgetID = widgetId)
+    proxy$session$sendCustomMessage("phosphorr:minimizeWidget", data)
+  }
+
+  return(proxy)
+}
+
+#' Remove widgets in the dock
+#'
+#' @param proxy Proxy phosphorr object
+#' @param widgetIDs IDs for phosphorr widget
+#' @param .all Remove all widgets?  This will override any ids specified in \code{widgetIDs}
+#'
+#' @return phosphorrProxy
+#' @export
+removeWidgets <- function(proxy,
+                          widgetIDs = NULL,
+                          .all = FALSE) {
+
+  if (.all && (length(widgetIDs) > 0)) {
+    warning("Duplicate specifications: .all and widgetIDs are both specified. All widgets will be removed.")
+  }
+
+  if (all(c("phosphorr", "htmlwidget") %in% class(proxy))) {
+    stop("Removing widgets can only occur after render.")
+  } else {
+    data <- list(dockID = proxy$id, widgetIDs = widgetIDs, all = .all)
+    proxy$session$sendCustomMessage("phosphorr:removeWidgets", data)
   }
 
   return(proxy)
