@@ -19,27 +19,29 @@ HTMLWidgets.widget({
 
   	      // Attach dock to el
   	      phosphorjs.Widget.attach(dock, $('#'+el.id).find(".phosphorr-shim")[0]);
-
-  	      // Add widgets
-  	      opts.items.widgets.forEach(function(widget) {
-  	        addWidget(
-  	          dockID = el.id,
-  	          widgetID = widget.widgetID,
-  	          title = widget.title,
-  	          caption = widget.caption,
-  	          iconClass = widget.iconClass,
-  	          closable = widget.closable,
-  	          insertmode =  widget.insertmode,
-  	          refwidgetID = widget.refwidgetID,
-  	          relsize = widget.relsize,
-  	          server = widget.server,
-  	          ui = widget.ui
-  	        );
-  	      });
-
-  	      // Save layout
-  	      initLayout = dock.saveLayout();
+        } else {
+          this.removeWidgets(phosphorjs.toArray(dock.widgets()));
         }
+
+  	    // Add widgets
+  	    opts.items.widgets.forEach(function(widget) {
+  	      addWidget(
+  	        dockID = el.id,
+  	        widgetID = widget.widgetID,
+  	        title = widget.title,
+  	        caption = widget.caption,
+  	        iconClass = widget.iconClass,
+  	        closable = widget.closable,
+  	        insertmode =  widget.insertmode,
+  	        refwidgetID = widget.refwidgetID,
+  	        relsize = widget.relsize,
+  	        server = widget.server,
+  	        ui = widget.ui
+  	      );
+  	    });
+
+  	    // Save layout
+  	    initLayout = dock.saveLayout();
       },
 
       resize: function(width, height) {
@@ -79,9 +81,13 @@ HTMLWidgets.widget({
 
       removeWidgets: function(widgets) {
         widgets.forEach(widget => {
-          Shiny.unbindAll($('#'+widget.id)[0]);
-          widget.close();
-          Shiny.bindAll($('#'+widget.id)[0]);
+          Shiny.unbindAll(widget.node, true);
+          // Replicating widget.close() from https://github.com/phosphorjs/phosphor/blob/8fee9108/packages/widgets/src/widget.ts#L586
+          if (widget.parent) {
+            widget.parent = null;
+          } else if (widget.isAttached) {
+            phosphorjs.Widget.detach(widget);
+          }
         });
       }
     };
@@ -166,6 +172,8 @@ function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconC
   // Need to rebind Shiny on certain events (for now, show and resize only)
   // Also need throttling for resize:  https://shiny.rstudio.com/articles/js-dashboard.html
   widget.onAfterShow = function(msg) { Shiny.bindAll(this); };
+  widget.onCloseRequest = function(msg) { HTMLWidgets.find("#" + $(this.parent.node).closest(".phosphorr").attr("id")).removeWidgets(Array(this)); // Need to use the HTMLWidget method or it won't work
+  };
   widget.onResize = _.debounce( function(msg) { Shiny.bindAll(this); }, 150 );
 
   // Attach widget to panel (first widget is dock)
