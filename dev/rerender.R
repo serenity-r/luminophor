@@ -161,6 +161,8 @@ server <- function(input, output, session) {
   })
 
   output$`widget-myslider` <- renderUI({
+    input$rerender
+
     tagList(
       widgetHeader(
         shinyWidgets::prettyToggle(
@@ -177,7 +179,7 @@ server <- function(input, output, session) {
         )
       ),
       widgetBody(
-        sliderInput('myslider', "Number of observations:", 1, 100, value = isolate(input$myslider))
+        sliderInput('myslider', "Number of observations:", 1, 100, value = isolate(input$myslider) %||% 50)
       )
     )
   })

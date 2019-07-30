@@ -100,10 +100,10 @@ server <- function(input, output, session) {
       mydata <- histdata[seq_len(input[[ns('slider')]])]
       hist(mydata)
     })
+  })
 
-    observeEvent(input$remove_btn, {
-      phosphorrProxy("pjsbox") %>% removeWidgets(c("code", "help", "messages"))
-    })
+  observeEvent(input$remove_btn, {
+    phosphorrProxy("pjsbox") %>% removeWidgets(.all = TRUE)
   })
 }
 
