@@ -12,7 +12,8 @@ Imports:
     shiny,
     htmlwidgets,
     htmltools
-URL: https://github.com/serenity-r/phosphorr
+URL: https://serenity-r.github.io/phosphorr, https://github.com/serenity-r/phosphorr
+BugReports: https://github.com/serenity-r/phosphorr/issues
 License: BSD 3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
