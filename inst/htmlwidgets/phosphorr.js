@@ -155,10 +155,12 @@ function removeWidgets(dockID, widgetIDs, all) {
 }
 
 function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconClass = "", closable = true, insertmode = "tab-after", refwidgetID = null, relsize = null, server = false, ui = null) {
-  Shiny.unbindAll($('#'+dockID)[0]);
-
   // Add widget content to DOM
-  $('#'+dockID).append('<div id="' + widgetID + '" class="widget-content' + (server ? ' shiny-html-output' : '') + '">' + (ui !== null ? ui : '') + '</div>');
+  $('#'+dockID).append('<div id="' + widgetID + '" class="widget-content' + (server ? ' shiny-html-output' : '') + '"></div>');
+
+  if (ui !== null) {
+    Shiny.renderContent(document.getElementById(widgetID), ui, "beforeEnd");
+  }
 
   // Create widget and bind content
   var widget = new phosphorjs.Widget({node: document.getElementById(widgetID)});
@@ -171,7 +173,6 @@ function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconC
 
   // Need to rebind Shiny on certain events (for now, show and resize only)
   // Also need throttling for resize:  https://shiny.rstudio.com/articles/js-dashboard.html
-  widget.onAfterShow = function(msg) { Shiny.bindAll(this); };
   widget.onCloseRequest = function(msg) { HTMLWidgets.find("#" + $(this.parent.node).closest(".phosphorr").attr("id")).removeWidgets(Array(this)); // Need to use the HTMLWidget method or it won't work
   };
   widget.onResize = _.debounce( function(msg) { Shiny.bindAll(this); }, 150 );
@@ -187,8 +188,6 @@ function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconC
     setSize(layout.main, widgetID, relsize, (["split-top", "split-left"].includes(insertmode) ? 1 : -1));
     dock.restoreLayout(layout);
   }
-
-  Shiny.bindAll($('#'+dockID)[0]);
 }
 
 // ---- R -> Javascript

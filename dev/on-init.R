@@ -106,7 +106,25 @@ server <- function(input, output, session) {
       addWidget(id = 'widget-myslider',
                 caption = "This is my slider",
                 icon = icon("layer-group"),
-                ui = uiOutput('widget-myslider'),
+                ui = tagList(
+                  widgetHeader(
+                    shinyWidgets::prettyToggle(
+                      inputId = "maximize",
+                      label_on = "",
+                      label_off = "",
+                      status_on = "default",
+                      status_off = "default",
+                      outline = TRUE,
+                      plain = TRUE,
+                      icon_on = icon("window-minimize"),
+                      icon_off = icon("window-maximize"),
+                      inline = TRUE
+                    )
+                  ),
+                  widgetBody(
+                    sliderInput('myslider', "Number of observations:", 1, 100, 50)
+                  )
+                ),
                 title = "Slider") %>%
       addWidget(id = 'widget-myplot',
                 icon = icon("image"),
@@ -152,31 +170,6 @@ server <- function(input, output, session) {
                 ui = widgetBody(HTML("Help")),
                 title = "Help",
                 icon = icon("question"))
-  })
-
-  output$`widget-myslider` <- renderUI({
-    tagList(
-      widgetHeader(
-        shinyWidgets::prettyToggle(
-          inputId = "maximize",
-          label_on = "",
-          label_off = "",
-          status_on = "default",
-          status_off = "default",
-          outline = TRUE,
-          plain = TRUE,
-          icon_on = icon("window-minimize"),
-          icon_off = icon("window-maximize"),
-          inline = TRUE
-        )
-      ),
-      widgetBody(
-        sliderInput('myslider', "Number of observations:", 1, 100, 50)
-      )
-    )
-  })
-
-  output$myheader <- renderUI({
   })
 
   observeEvent(input$maximize, {

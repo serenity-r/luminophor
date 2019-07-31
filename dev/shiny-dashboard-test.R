@@ -15,6 +15,8 @@ library(phosphorr)
 # Define UI for application that draws a histogram
 library(shinydashboard)
 
+`%||%` <- function(a, b) if (!is.null(a)) a else b
+
 ui <- dashboardPage(
   dashboardHeader(title = "Sample Layout"),
   dashboardSidebar(
