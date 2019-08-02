@@ -7,15 +7,71 @@
 removeWidgets(proxy, widgetIDs = NULL, .all = FALSE)
 }
 \arguments{
-\item{proxy}{Proxy phosphorr object}
+\item{proxy}{\link[=phosphorrProxy]{Proxy PhosphorR object}}
 
 \item{widgetIDs}{IDs for phosphorr widget}
 
 \item{.all}{Remove all widgets?  This will override any ids specified in \code{widgetIDs}}
 }
 \value{
-phosphorrProxy
+\link[=phosphorrProxy]{Proxy PhosphorR object}
 }
 \description{
 Remove widgets in the dock
+}
+\examples{
+if (interactive()) {
+  library(shiny)
+  library(phosphorr)
+  shinyApp(
+    ui = fluidPage(
+      titlePanel("Old Faithful Geyser Data"),
+      sidebarLayout(
+        sidebarPanel(
+          actionButton('rerender', 'Rerender', icon = icon('redo')),
+          actionButton('remove_slider', 'Remove Slider', icon = icon('times')),
+          actionButton('remove_all', 'Remove All', icon = icon('times'))
+        ),
+        mainPanel(
+          phosphorrOutput('pjs', height='90vh')
+        )
+      )
+    ),
+    server = function(input, output) {
+      output$pjs <- renderPhosphorr({
+        input$rerender
+        initval <- isolate({if (!is.null(input$bins)) input$bins else 30})
+
+        phosphorr() \%>\%
+          addWidget("widget-slider",
+                    title = "Slider",
+                    ui = sliderInput("bins", "Number of bins:",
+                                     min = 1, max = 50, value = initval)) \%>\%
+          addWidget("widget-plot",
+                    title = "Plot",
+                    insertmode = "split-right",
+                    refwidgetID = "widget-slider",
+                    relsize = 0.75,
+                    ui = plotOutput("distPlot"))
+      })
+
+      output$distPlot <- renderPlot({
+        x <- faithful[, 2]
+        bins <- seq(min(x), max(x), length.out = input$bins + 1)
+        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+      })
+
+      observeEvent(input$remove_slider, {
+        phosphorrProxy('pjs') \%>\%
+          removeWidgets('widget-slider')
+      })
+
+      observeEvent(input$remove_all, {
+        phosphorrProxy('pjs') \%>\%
+          removeWidgets(.all = TRUE)
+      })
+    }
+  )
+}
+
 }

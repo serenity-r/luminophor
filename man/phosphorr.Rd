@@ -2,11 +2,24 @@
 % Please edit documentation in R/phosphorr.R
 \name{phosphorr}
 \alias{phosphorr}
-\title{<Add Title>}
+\title{Create a PhosphorR dock htmlwidget}
 \usage{
 phosphorr(items = NULL, width = "100\%", height = "72vh",
   elementId = NULL)
 }
+\arguments{
+\item{items}{Options for htmlwidget (currently not used in this function)}
+
+\item{width, height}{Fixed width/height for widget (in css units). The default
+is NULL, which results in intelligent automatic sizing based on the widget's
+container. (currently not used in this function - see
+\code{\link{phosphorrOutput}} to set size specifications)}
+
+\item{elementId}{Use an explicit element ID for the widget (rather than an
+automatically generated one). Useful if you have other JavaScript that
+needs to explicitly discover and interact with a specific widget instance.}
+}
 \description{
-<Add Description>
+This function creates a PhosphorR dock using htmlwidgets. The widget can be
+rendered on HTML pages generated from R Markdown, Shiny, or other applications.
 }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Maximize or minimize a widget in the dock — maximizeWidget • phosphorr</title>
+<title>PhosphorR: HTMLWidget implementation of PhosphorJS layout manager — PhosphorR-package • phosphorr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,11 +32,9 @@
 
 
 
-<meta property="og:title" content="Maximize or minimize a widget in the dock — maximizeWidget" />
+<meta property="og:title" content="PhosphorR: HTMLWidget implementation of PhosphorJS layout manager — PhosphorR-package" />
 
-<meta property="og:description" content="Technically, minimizing a widget is more like un-maximizing a widget.  When
-&quot;minimized,&quot; the widget will return to its original position in the layout.
-When a widget is maximized, it will take up the full size of the dock." />
+<meta property="og:description" content="PhosphorR: HTMLWidget implementation of PhosphorJS layout manager" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,39 +103,21 @@ When a widget is maximized, it will take up the full size of the dock." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Maximize or minimize a widget in the dock</h1>
+    <h1>PhosphorR: HTMLWidget implementation of PhosphorJS layout manager</h1>
     <small class="dont-index">Source: <a href='https://github.com/serenity-r/phosphorr/blob/master/R/phosphorr.R'><code>R/phosphorr.R</code></a></small>
-    <div class="hidden name"><code>maximizeWidget.Rd</code></div>
+    <div class="hidden name"><code>PhosphorR-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Technically, minimizing a widget is more like un-maximizing a widget.  When
-"minimized," the widget will return to its original position in the layout.
-When a widget is maximized, it will take up the full size of the dock.</p>
+    <p>PhosphorR: HTMLWidget implementation of PhosphorJS layout manager</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>maximizeWidget</span>(<span class='no'>proxy</span>, <span class='no'>widgetId</span>)
+        
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-<span class='fu'>minimizeWidget</span>(<span class='no'>proxy</span>, <span class='no'>widgetId</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>proxy</th>
-      <td><p><a href='phosphorrProxy.html'>Proxy PhosphorR object</a></p></td>
-    </tr>
-    <tr>
-      <th>widgetId</th>
-      <td><p>ID for phosphorr widget</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><a href='phosphorrProxy.html'>Proxy PhosphorR object</a></p>
+    <div class='dont-index'><p><code><a href='phosphorr.html'>phosphorr</a></code>, <code><a href='phosphorrOutput.html'>phosphorrOutput</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -147,15 +127,7 @@ When a widget is maximized, it will take up the full size of the dock.</p>
   <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span>(
     <span class='kw'>ui</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span>(
       <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/titlePanel.html'>titlePanel</a></span>(<span class='st'>"Old Faithful Geyser Data"</span>),
-      <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarLayout</a></span>(
-        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarPanel.html'>sidebarPanel</a></span>(
-          <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span>(<span class='st'>'maximize'</span>, <span class='st'>'Maximize Plot'</span>, <span class='kw'>icon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/icon.html'>icon</a></span>(<span class='st'>'window-maximize'</span>)),
-          <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span>(<span class='st'>'minimize'</span>, <span class='st'>'Minimize Plot'</span>, <span class='kw'>icon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/icon.html'>icon</a></span>(<span class='st'>'window-minimize'</span>))
-        ),
-        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/mainPanel.html'>mainPanel</a></span>(
-          <span class='fu'><a href='phosphorrOutput.html'>phosphorrOutput</a></span>(<span class='st'>'pjs'</span>, <span class='kw'>height</span><span class='kw'>=</span><span class='st'>'90vh'</span>)
-        )
-      )
+      <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidRow</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/column.html'>column</a></span>(<span class='fl'>12</span>, <span class='fu'><a href='phosphorrOutput.html'>phosphorrOutput</a></span>(<span class='st'>'pjs'</span>, <span class='kw'>height</span><span class='kw'>=</span><span class='st'>'90vh'</span>)))
     ),
     <span class='kw'>server</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>) {
       <span class='no'>output</span>$<span class='no'>pjs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phosphorrOutput.html'>renderPhosphorr</a></span>(
@@ -177,16 +149,6 @@ When a widget is maximized, it will take up the full size of the dock.</p>
         <span class='no'>bins</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>x</span>), <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>x</span>), <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='no'>input</span>$<span class='no'>bins</span> + <span class='fl'>1</span>)
         <span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>x</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='no'>bins</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>'darkgray'</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>'white'</span>)
       })
-
-      <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>observeEvent</a></span>(<span class='no'>input</span>$<span class='no'>maximize</span>, {
-        <span class='fu'><a href='phosphorrProxy.html'>phosphorrProxy</a></span>(<span class='st'>'pjs'</span>) <span class='kw'>%&gt;%</span>
-          <span class='fu'>maximizeWidget</span>(<span class='st'>'widget-plot'</span>)
-      })
-
-      <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>observeEvent</a></span>(<span class='no'>input</span>$<span class='no'>minimize</span>, {
-        <span class='fu'><a href='phosphorrProxy.html'>phosphorrProxy</a></span>(<span class='st'>'pjs'</span>) <span class='kw'>%&gt;%</span>
-          <span class='fu'>minimizeWidget</span>(<span class='st'>'widget-plot'</span>)
-      })
     }
   )
 }</div></pre>
@@ -194,9 +156,8 @@ When a widget is maximized, it will take up the full size of the dock.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -6,10 +6,11 @@
 \usage{
 addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
   closable = TRUE, insertmode = "tab-after", refwidgetID = NULL,
-  relsize = NULL, ui = HTML("I am a widget!"))
+  relsize = NULL, ui = shiny::HTML("I am a widget!"))
 }
 \arguments{
-\item{proxy}{Proxy phosphorr object}
+\item{proxy}{Either output from the \code{\link{phosphorr}} function, or a
+\link[=phosphorrProxy]{Proxy PhosphorR object}}
 
 \item{id}{ID for phosphorr widget}
 
@@ -24,18 +25,66 @@ addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
 \item{insertmode}{How should the widget be added? Options include \code{split-right}, \code{split-left},
 \code{split-bottom}, \code{split-top}, \code{tab-before}, and \code{tab-after} (default)}
 
+\item{refwidgetID}{Reference widget ID for \code{insertmode} action}
+
 \item{relsize}{Relative size of widget (between 0 and 1) in relation to \code{refwidget} (or last widget
 if \code{refwidget} isn't specified)}
 
 \item{ui}{UI content.  If just text, need to use HTML(...)}
-
-\item{content}{Code for phosphorr widget UI}
-
-\item{refwidget}{Reference widget ID for \code{insertmode} action}
 }
 \value{
-phosphorrProxy
+\link[=phosphorrProxy]{Proxy PhosphorR object}
 }
 \description{
 Adds a new widget to the dock
+}
+\examples{
+# Add widget on render
+if (interactive()) {
+  library(shiny)
+  library(phosphorr)
+  shinyApp(
+    ui = fluidPage(
+      fluidRow(column(12, phosphorrOutput('pjs', height='90vh')))
+    ),
+    server = function(input, output) {
+      output$pjs <- renderPhosphorr(
+        phosphorr() \%>\%
+          addWidget("mywidget")
+      )
+    }
+  )
+}
+
+# Add widget on event
+if (interactive()) {
+  library(shiny)
+  library(phosphorr)
+  shinyApp(
+    ui = fluidPage(
+      sidebarLayout(
+        sidebarPanel(
+          actionButton('add', 'Add Widgets', icon = icon('plus'))
+        ),
+        mainPanel(
+          phosphorrOutput('pjs', height='90vh')
+        )
+      )
+    ),
+    server = function(input, output) {
+      output$pjs <- renderPhosphorr(
+        phosphorr()
+      )
+
+      observeEvent(input$add, {
+        phosphorrProxy('pjs') \%>\%
+          addWidget("mywidget")
+      })
+    }
+  )
+}
+
+}
+\seealso{
+\code{\link{removeWidgets}}
 }

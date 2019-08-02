@@ -2,18 +2,47 @@
 % Please edit documentation in R/phosphorr.R
 \name{phosphorrProxy}
 \alias{phosphorrProxy}
-\title{Create a phosphorr proxy object}
+\title{Create a PhosphorR proxy object}
 \usage{
 phosphorrProxy(id, session = shiny::getDefaultReactiveDomain())
 }
 \arguments{
-\item{id}{Name of the phosphorr panel}
+\item{id}{Name of the PhosphorR htmlwidget}
 
 \item{session}{Valid session object}
 }
 \value{
-panel proxy object
+Proxy PhosphorR object
 }
 \description{
-Create a phosphorr proxy object
+Create a PhosphorR proxy object
+}
+\examples{
+if (interactive()) {
+  library(shiny)
+  library(phosphorr)
+  shinyApp(
+    ui = fluidPage(
+      sidebarLayout(
+        sidebarPanel(
+          actionButton('add', 'Add Widgets', icon = icon('plus'))
+        ),
+        mainPanel(
+          phosphorrOutput('pjs', height='90vh')
+        )
+      )
+    ),
+    server = function(input, output) {
+      output$pjs <- renderPhosphorr(
+        phosphorr()
+      )
+
+      observeEvent(input$add, {
+        phosphorrProxy('pjs') \%>\%
+          addWidget("mywidget")
+      })
+    }
+  )
+}
+
 }
