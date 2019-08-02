@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a PhosphorR dock htmlwidget — phosphorr • phosphorr</title>
+<title>PhosphorR pipe operator — %&gt;% • phosphorr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,10 +32,10 @@
 
 
 
-<meta property="og:title" content="Create a PhosphorR dock htmlwidget — phosphorr" />
+<meta property="og:title" content="PhosphorR pipe operator — %&gt;%" />
 
-<meta property="og:description" content="This function creates a PhosphorR dock using htmlwidgets. The widget can be
-rendered on HTML pages generated from R Markdown, Shiny, or other applications." />
+<meta property="og:description" content="Like dplyr, PhosphorR also uses the pipe function, %&amp;gt;% to turn
+function composition into a series of imperative statements." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -104,56 +104,42 @@ rendered on HTML pages generated from R Markdown, Shiny, or other applications."
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a PhosphorR dock htmlwidget</h1>
+    <h1>PhosphorR pipe operator</h1>
     <small class="dont-index">Source: <a href='https://github.com/serenity-r/phosphorr/blob/master/R/phosphorr.R'><code>R/phosphorr.R</code></a></small>
-    <div class="hidden name"><code>phosphorr.Rd</code></div>
+    <div class="hidden name"><code>pipe.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function creates a PhosphorR dock using htmlwidgets. The widget can be
-rendered on HTML pages generated from R Markdown, Shiny, or other applications.</p>
+    <p>Like dplyr, PhosphorR also uses the pipe function, <code>%&gt;%</code> to turn
+function composition into a series of imperative statements.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>phosphorr</span>(<span class='kw'>items</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='st'>"100%"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='st'>"72vh"</span>,
-  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>items</th>
-      <td><p>Options for htmlwidget (currently not used in this function)</p></td>
-    </tr>
-    <tr>
-      <th>width, height</th>
-      <td><p>Fixed width/height for widget (in css units). The default
-is NULL, which results in intelligent automatic sizing based on the widget's
-container. (currently not used in this function - see
-<code><a href='phosphorrOutput.html'>phosphorrOutput</a></code> to set size specifications)</p></td>
-    </tr>
-    <tr>
-      <th>elementId</th>
-      <td><p>Use an explicit element ID for the widget (rather than an
-automatically generated one). Useful if you have other JavaScript that
-needs to explicitly discover and interact with a specific widget instance.</p></td>
+      <th>lhs, rhs</th>
+      <td><p>A <a href='phosphorrProxy.html'>proxy PhosphorR object</a></p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='phosphorrProxy.html'>phosphorrProxy</a></code></p></div>
-    
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Instead of</span>
+<span class='fu'><a href='addWidget.html'>addWidget</a></span>(<span class='fu'><a href='phosphorr.html'>phosphorr</a></span>(), <span class='st'>"mywidget"</span>)
+<span class='co'># you can write</span>
+<span class='fu'><a href='phosphorr.html'>phosphorr</a></span>() <span class='kw'>%&gt;%</span> <span class='fu'><a href='addWidget.html'>addWidget</a></span>(<span class='st'>"mywidget"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -2,8 +2,6 @@
 #'
 #' @docType package
 #'
-#' @importFrom magrittr "%>%"
-#'
 #' @name PhosphorR-package
 #'
 #' @seealso \code{\link{phosphorr}}, \code{\link{phosphorrOutput}}
@@ -42,6 +40,23 @@
 #' }
 NULL
 
+#' PhosphorR pipe operator
+#'
+#' Like dplyr, PhosphorR also uses the pipe function, \code{\%>\%} to turn
+#' function composition into a series of imperative statements.
+#'
+#' @importFrom magrittr %>%
+#' @name %>%
+#' @rdname pipe
+#' @export
+#' @param lhs,rhs A \link[=phosphorrProxy]{proxy PhosphorR object}
+#' @examples
+#' # Instead of
+#' addWidget(phosphorr(), "mywidget")
+#' # you can write
+#' phosphorr() %>% addWidget("mywidget")
+NULL
+
 #' Create a PhosphorR dock htmlwidget
 #'
 #' This function creates a PhosphorR dock using htmlwidgets. The widget can be
@@ -57,6 +72,8 @@ NULL
 #'   needs to explicitly discover and interact with a specific widget instance.
 #'
 #' @import htmlwidgets
+#'
+#' @seealso \code{\link{phosphorrProxy}}
 #'
 #' @export
 phosphorr <- function(items = NULL, width = "100%", height = "72vh", elementId = NULL) {
@@ -147,10 +164,15 @@ phosphorr_html <- function(id, style, class, ...) {
 
 #' Create a PhosphorR proxy object
 #'
+#' Create a PhosphorR proxy object, which can then be chained
+#' to any of the API functions available (e.g. \code{\link{addWidget}}).
+#'
 #' @param id Name of the PhosphorR htmlwidget
 #' @param session Valid session object
 #'
 #' @return Proxy PhosphorR object
+#'
+#' @seealso \code{\link{phosphorr}}
 #'
 #' @examples
 #' if (interactive()) {

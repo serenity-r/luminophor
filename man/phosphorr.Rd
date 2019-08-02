@@ -23,3 +23,6 @@ needs to explicitly discover and interact with a specific widget instance.}
 This function creates a PhosphorR dock using htmlwidgets. The widget can be
 rendered on HTML pages generated from R Markdown, Shiny, or other applications.
 }
+\seealso{
+\code{\link{phosphorrProxy}}
+}

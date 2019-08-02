@@ -15,7 +15,8 @@ phosphorrProxy(id, session = shiny::getDefaultReactiveDomain())
 Proxy PhosphorR object
 }
 \description{
-Create a PhosphorR proxy object
+Create a PhosphorR proxy object, which can then be chained
+to any of the API functions available (e.g. \code{\link{addWidget}}).
 }
 \examples{
 if (interactive()) {
@@ -45,4 +46,7 @@ if (interactive()) {
   )
 }
 
+}
+\seealso{
+\code{\link{phosphorr}}
 }

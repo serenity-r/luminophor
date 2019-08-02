@@ -1,0 +1,19 @@
+reference:
+- title: "PhosphorR"
+  contents:
+  - '`PhosphorR-package`'
+- title: "Initialization and rendering functions"
+  desc: >
+      Functions for creating and rendering a dock
+  contents:
+  - '`phosphorr`'
+  - '`phosphorrOutput`'
+- title: "PhosphorR Widget API"
+  desc: >
+      Functions that perform widget actions on the dock
+  contents:
+  - '`phosphorrProxy`'
+  - '`addWidget`'
+  - '`removeWidgets`'
+  - '`maximizeWidget`'
+  - '`%>%`'
