@@ -1,18 +1,18 @@
 reference:
-- title: "PhosphorR"
+- title: "LuminophoR"
   contents:
-  - '`PhosphorR-package`'
+  - '`LuminophoR-package`'
 - title: "Initialization and rendering functions"
   desc: >
       Functions for creating and rendering a dock
   contents:
-  - '`phosphorr`'
-  - '`phosphorrOutput`'
-- title: "PhosphorR Widget API"
+  - '`luminophor`'
+  - '`luminophorOutput`'
+- title: "LuminophoR Widget API"
   desc: >
       Functions that perform widget actions on the dock
   contents:
-  - '`phosphorrProxy`'
+  - '`luminophorProxy`'
   - '`addWidget`'
   - '`removeWidgets`'
   - '`maximizeWidget`'

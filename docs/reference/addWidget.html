@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Adds a new widget to the dock — addWidget • phosphorr</title>
+<title>Adds a new widget to the dock — addWidget • luminophor</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -65,7 +65,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">phosphorr</a>
+        <a class="navbar-link" href="../index.html">luminophor</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
@@ -85,7 +85,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/serenity-r/phosphorr">
+  <a href="https://github.com/serenity-r/luminophor">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -104,7 +104,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Adds a new widget to the dock</h1>
-    <small class="dont-index">Source: <a href='https://github.com/serenity-r/phosphorr/blob/master/R/phosphorr.R'><code>R/phosphorr.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/serenity-r/luminophor/blob/master/R/luminophor.R'><code>R/luminophor.R</code></a></small>
     <div class="hidden name"><code>addWidget.Rd</code></div>
     </div>
 
@@ -123,20 +123,20 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>proxy</th>
-      <td><p>Either output from the <code><a href='phosphorr.html'>phosphorr</a></code> function, or a
-<a href='phosphorrProxy.html'>Proxy PhosphorR object</a></p></td>
+      <td><p>Either output from the <code><a href='luminophor.html'>luminophor</a></code> function, or a
+<a href='luminophorProxy.html'>Proxy LuminophoR object</a></p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>ID for phosphorr widget</p></td>
+      <td><p>ID for luminophor widget</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>Title for phosphorr widget</p></td>
+      <td><p>Title for luminophor widget</p></td>
     </tr>
     <tr>
       <th>caption</th>
-      <td><p>Caption for phosphorr widget</p></td>
+      <td><p>Caption for luminophor widget</p></td>
     </tr>
     <tr>
       <th>icon</th>
@@ -168,7 +168,7 @@ if <code>refwidget</code> isn't specified)</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='phosphorrProxy.html'>Proxy PhosphorR object</a></p>
+    <p><a href='luminophorProxy.html'>Proxy LuminophoR object</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -179,14 +179,14 @@ if <code>refwidget</code> isn't specified)</p></td>
     <pre class="examples"><div class='input'><span class='co'># Add widget on render</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()) {
   <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>shiny</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>phosphorr</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>luminophor</span>)
   <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span>(
     <span class='kw'>ui</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span>(
-      <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidRow</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/column.html'>column</a></span>(<span class='fl'>12</span>, <span class='fu'><a href='phosphorrOutput.html'>phosphorrOutput</a></span>(<span class='st'>'pjs'</span>, <span class='kw'>height</span><span class='kw'>=</span><span class='st'>'90vh'</span>)))
+      <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidRow</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/shiny/man/column.html'>column</a></span>(<span class='fl'>12</span>, <span class='fu'><a href='luminophorOutput.html'>luminophorOutput</a></span>(<span class='st'>'lmo'</span>, <span class='kw'>height</span><span class='kw'>=</span><span class='st'>'90vh'</span>)))
     ),
     <span class='kw'>server</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>) {
-      <span class='no'>output</span>$<span class='no'>pjs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phosphorrOutput.html'>renderPhosphorr</a></span>(
-        <span class='fu'><a href='phosphorr.html'>phosphorr</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='no'>output</span>$<span class='no'>lmo</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='luminophorOutput.html'>renderLuminophor</a></span>(
+        <span class='fu'><a href='luminophor.html'>luminophor</a></span>() <span class='kw'>%&gt;%</span>
           <span class='fu'>addWidget</span>(<span class='st'>"mywidget"</span>)
       )
     }
@@ -196,25 +196,25 @@ if <code>refwidget</code> isn't specified)</p></td>
 <span class='co'># Add widget on event</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()) {
   <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>shiny</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>phosphorr</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>luminophor</span>)
   <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span>(
     <span class='kw'>ui</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span>(
       <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarLayout</a></span>(
-        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarPanel.html'>sidebarPanel</a></span>(
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarPanel</a></span>(
           <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span>(<span class='st'>'add'</span>, <span class='st'>'Add Widgets'</span>, <span class='kw'>icon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/icon.html'>icon</a></span>(<span class='st'>'plus'</span>))
         ),
-        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/mainPanel.html'>mainPanel</a></span>(
-          <span class='fu'><a href='phosphorrOutput.html'>phosphorrOutput</a></span>(<span class='st'>'pjs'</span>, <span class='kw'>height</span><span class='kw'>=</span><span class='st'>'90vh'</span>)
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>mainPanel</a></span>(
+          <span class='fu'><a href='luminophorOutput.html'>luminophorOutput</a></span>(<span class='st'>'lmo'</span>, <span class='kw'>height</span><span class='kw'>=</span><span class='st'>'90vh'</span>)
         )
       )
     ),
     <span class='kw'>server</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>) {
-      <span class='no'>output</span>$<span class='no'>pjs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phosphorrOutput.html'>renderPhosphorr</a></span>(
-        <span class='fu'><a href='phosphorr.html'>phosphorr</a></span>()
+      <span class='no'>output</span>$<span class='no'>lmo</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='luminophorOutput.html'>renderLuminophor</a></span>(
+        <span class='fu'><a href='luminophor.html'>luminophor</a></span>()
       )
 
       <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>observeEvent</a></span>(<span class='no'>input</span>$<span class='no'>add</span>, {
-        <span class='fu'><a href='phosphorrProxy.html'>phosphorrProxy</a></span>(<span class='st'>'pjs'</span>) <span class='kw'>%&gt;%</span>
+        <span class='fu'><a href='luminophorProxy.html'>luminophorProxy</a></span>(<span class='st'>'lmo'</span>) <span class='kw'>%&gt;%</span>
           <span class='fu'>addWidget</span>(<span class='st'>"mywidget"</span>)
       })
     }

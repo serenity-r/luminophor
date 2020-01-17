@@ -1,23 +1,23 @@
-#' PhosphorR: HTMLWidget implementation of PhosphorJS layout manager
+#' LuminophoR: HTMLWidget implementation of Lumino layout manager
 #'
 #' @docType package
 #'
-#' @name PhosphorR-package
+#' @name LuminophoR-package
 #'
-#' @seealso \code{\link{phosphorr}}, \code{\link{phosphorrOutput}}
+#' @seealso \code{\link{luminophor}}, \code{\link{luminophorOutput}}
 #'
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
-#'   library(phosphorr)
+#'   library(luminophor)
 #'   shinyApp(
 #'     ui = fluidPage(
 #'       titlePanel("Old Faithful Geyser Data"),
-#'       fluidRow(column(12, phosphorrOutput('pjs', height='90vh')))
+#'       fluidRow(column(12, luminophorOutput('lmo', height='90vh')))
 #'     ),
 #'     server = function(input, output) {
-#'       output$pjs <- renderPhosphorr(
-#'         phosphorr() %>%
+#'       output$lmo <- renderLuminophor(
+#'         luminophor() %>%
 #'           addWidget("widget-slider",
 #'                     title = "Slider",
 #'                     ui = sliderInput("bins", "Number of bins:",
@@ -40,43 +40,43 @@
 #' }
 NULL
 
-#' PhosphorR pipe operator
+#' LuminophoR pipe operator
 #'
-#' Like dplyr, PhosphorR also uses the pipe function, \code{\%>\%} to turn
+#' Like dplyr, LuminophoR also uses the pipe function, \code{\%>\%} to turn
 #' function composition into a series of imperative statements.
 #'
 #' @importFrom magrittr %>%
 #' @name %>%
 #' @rdname pipe
 #' @export
-#' @param lhs,rhs A \link[=phosphorrProxy]{proxy PhosphorR object}
+#' @param lhs,rhs A \link[=luminophorProxy]{proxy LuminophoR object}
 #' @examples
 #' # Instead of
-#' addWidget(phosphorr(), "mywidget")
+#' addWidget(luminophor(), "mywidget")
 #' # you can write
-#' phosphorr() %>% addWidget("mywidget")
+#' luminophor() %>% addWidget("mywidget")
 NULL
 
-#' Create a PhosphorR dock htmlwidget
+#' Create a LuminophoR dock htmlwidget
 #'
-#' This function creates a PhosphorR dock using htmlwidgets. The widget can be
+#' This function creates a LuminophoR dock using htmlwidgets. The widget can be
 #' rendered on HTML pages generated from R Markdown, Shiny, or other applications.
 #'
 #' @param items Options for htmlwidget (currently not used in this function)
 #' @param width,height Fixed width/height for widget (in css units). The default
 #'   is NULL, which results in intelligent automatic sizing based on the widget's
 #'   container. (currently not used in this function - see
-#'   \code{\link{phosphorrOutput}} to set size specifications)
+#'   \code{\link{luminophorOutput}} to set size specifications)
 #' @param elementId Use an explicit element ID for the widget (rather than an
 #'   automatically generated one). Useful if you have other JavaScript that
 #'   needs to explicitly discover and interact with a specific widget instance.
 #'
 #' @import htmlwidgets
 #'
-#' @seealso \code{\link{phosphorrProxy}}
+#' @seealso \code{\link{luminophorProxy}}
 #'
 #' @export
-phosphorr <- function(items = NULL, width = "100%", height = "72vh", elementId = NULL) {
+luminophor <- function(items = NULL, width = "100%", height = "72vh", elementId = NULL) {
 
   # Default options
   options = list(widgets = list())
@@ -93,28 +93,28 @@ phosphorr <- function(items = NULL, width = "100%", height = "72vh", elementId =
 
   # create widget
   htmlwidgets::createWidget(
-    name = 'phosphorr',
+    name = 'luminophor',
     x,
     width = width,
     height = height,
-    package = 'phosphorr',
+    package = 'luminophor',
     elementId = elementId
   )
 }
 
-#' Helper functions for using PhosphorJS in Shiny
+#' Helper functions for using Lumino in Shiny
 #'
 #' These two functions are like most fooOutput() and renderFoo() functions in
 #' the shiny package. The former is used to create an html container for a
-#' PhosphorJS dock panel, and the latter is used in the server logic to render
-#' the PhosphorJS dock panel.
+#' Lumino dock panel, and the latter is used in the server logic to render
+#' the Lumino dock panel.
 #'
 #' @param outputId ID of htmlwidgets container
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
-#' @param expr An expression to create a PhosphorJS dock htmlwidget (normally
-#'   via \code{\link{phosphorr}()}).
+#' @param expr An expression to create a Lumino dock htmlwidget (normally
+#'   via \code{\link{luminophor}()}).
 #' @param env The environment in which to evaluate expr.
 #' @param quoted Is expr a quoted expression (with \code{quote()})? This is
 #'   useful if you want to save an expression in a variable.
@@ -122,62 +122,62 @@ phosphorr <- function(items = NULL, width = "100%", height = "72vh", elementId =
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
-#'   library(phosphorr)
+#'   library(luminophor)
 #'   shinyApp(
 #'     ui = fluidPage(
-#'       fluidRow(column(12, phosphorrOutput('pjs', height='90vh')))
+#'       fluidRow(column(12, luminophorOutput('lmo', height='90vh')))
 #'     ),
 #'     server = function(input, output) {
-#'       output$pjs <- renderPhosphorr(
-#'         phosphorr() %>%
+#'       output$lmo <- renderLuminophor(
+#'         luminophor() %>%
 #'           addWidget("mywidget")
 #'       )
 #'     }
 #'   )
 #' }
 #'
-#' @name phosphorrOutput
+#' @name luminophorOutput
 NULL
 
-#' @rdname phosphorrOutput
+#' @rdname luminophorOutput
 #'
 #' @export
-phosphorrOutput <- function(outputId, width = '100%', height = 'auto'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'phosphorr', width, height, package = 'phosphorr')
+luminophorOutput <- function(outputId, width = '100%', height = 'auto'){
+  htmlwidgets::shinyWidgetOutput(outputId, 'luminophor', width, height, package = 'luminophor')
 }
 
-#' @rdname phosphorrOutput
+#' @rdname luminophorOutput
 #'
 #' @export
-renderPhosphorr <- function(expr, env = parent.frame(), quoted = FALSE) {
+renderLuminophor <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
-  htmlwidgets::shinyRenderWidget(expr, phosphorrOutput, env, quoted = TRUE)
+  htmlwidgets::shinyRenderWidget(expr, luminophorOutput, env, quoted = TRUE)
 }
 
 # Add custom HTML to wrap the widget (called automatically by createWidget)
-phosphorr_html <- function(id, style, class, ...) {
+luminophor_html <- function(id, style, class, ...) {
   htmltools::tags$div(
     id = id, class = class, style = style,
-    htmltools::tags$div(class = "phosphorr-shim")
+    htmltools::tags$div(class = "luminophor-shim")
   )
 }
 
-#' Create a PhosphorR proxy object
+#' Create a LuminophoR proxy object
 #'
-#' Create a PhosphorR proxy object, which can then be chained
+#' Create a LuminophoR proxy object, which can then be chained
 #' to any of the API functions available (e.g. \code{\link{addWidget}}).
 #'
-#' @param id Name of the PhosphorR htmlwidget
+#' @param id Name of the LuminophoR htmlwidget
 #' @param session Valid session object
 #'
-#' @return Proxy PhosphorR object
+#' @return Proxy LuminophoR object
 #'
-#' @seealso \code{\link{phosphorr}}
+#' @seealso \code{\link{luminophor}}
 #'
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
-#'   library(phosphorr)
+#'   library(luminophor)
 #'   shinyApp(
 #'     ui = fluidPage(
 #'       sidebarLayout(
@@ -185,17 +185,17 @@ phosphorr_html <- function(id, style, class, ...) {
 #'           actionButton('add', 'Add Widgets', icon = icon('plus'))
 #'         ),
 #'         mainPanel(
-#'           phosphorrOutput('pjs', height='90vh')
+#'           luminophorOutput('lmo', height='90vh')
 #'         )
 #'       )
 #'     ),
 #'     server = function(input, output) {
-#'       output$pjs <- renderPhosphorr(
-#'         phosphorr()
+#'       output$lmo <- renderLuminophor(
+#'         luminophor()
 #'       )
 #'
 #'       observeEvent(input$add, {
-#'         phosphorrProxy('pjs') %>%
+#'         luminophorProxy('lmo') %>%
 #'           addWidget("mywidget")
 #'       })
 #'     }
@@ -203,20 +203,20 @@ phosphorr_html <- function(id, style, class, ...) {
 #' }
 #'
 #' @export
-phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
+luminophorProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
   object        <- list( id = id, session = session )
-  class(object) <- "phosphorrProxy"
+  class(object) <- "luminophorProxy"
 
   return(object)
 }
 
 #' Adds a new widget to the dock
 #'
-#' @param proxy Either output from the \code{\link{phosphorr}} function, or a
-#'   \link[=phosphorrProxy]{Proxy PhosphorR object}
-#' @param id ID for phosphorr widget
-#' @param title Title for phosphorr widget
-#' @param caption Caption for phosphorr widget
+#' @param proxy Either output from the \code{\link{luminophor}} function, or a
+#'   \link[=luminophorProxy]{Proxy LuminophoR object}
+#' @param id ID for luminophor widget
+#' @param title Title for luminophor widget
+#' @param caption Caption for luminophor widget
 #' @param icon Font Awesome icon (specified via the \code{icon} function)
 #' @param closable Create removable
 #' @param insertmode How should the widget be added? Options include \code{split-right}, \code{split-left},
@@ -232,14 +232,14 @@ phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' # Add widget on render
 #' if (interactive()) {
 #'   library(shiny)
-#'   library(phosphorr)
+#'   library(luminophor)
 #'   shinyApp(
 #'     ui = fluidPage(
-#'       fluidRow(column(12, phosphorrOutput('pjs', height='90vh')))
+#'       fluidRow(column(12, luminophorOutput('lmo', height='90vh')))
 #'     ),
 #'     server = function(input, output) {
-#'       output$pjs <- renderPhosphorr(
-#'         phosphorr() %>%
+#'       output$lmo <- renderLuminophor(
+#'         luminophor() %>%
 #'           addWidget("mywidget")
 #'       )
 #'     }
@@ -249,7 +249,7 @@ phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #' # Add widget on event
 #' if (interactive()) {
 #'   library(shiny)
-#'   library(phosphorr)
+#'   library(luminophor)
 #'   shinyApp(
 #'     ui = fluidPage(
 #'       sidebarLayout(
@@ -257,24 +257,24 @@ phosphorrProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 #'           actionButton('add', 'Add Widgets', icon = icon('plus'))
 #'         ),
 #'         mainPanel(
-#'           phosphorrOutput('pjs', height='90vh')
+#'           luminophorOutput('lmo', height='90vh')
 #'         )
 #'       )
 #'     ),
 #'     server = function(input, output) {
-#'       output$pjs <- renderPhosphorr(
-#'         phosphorr()
+#'       output$lmo <- renderLuminophor(
+#'         luminophor()
 #'       )
 #'
 #'       observeEvent(input$add, {
-#'         phosphorrProxy('pjs') %>%
+#'         luminophorProxy('lmo') %>%
 #'           addWidget("mywidget")
 #'       })
 #'     }
 #'   )
 #' }
 #'
-#' @return \link[=phosphorrProxy]{Proxy PhosphorR object}
+#' @return \link[=luminophorProxy]{Proxy LuminophoR object}
 #' @export
 addWidget <- function(proxy,
                       id,
@@ -299,7 +299,7 @@ addWidget <- function(proxy,
     ui <- '' # Won't need this
   }
 
-  if (all(c("phosphorr", "htmlwidget") %in% class(proxy))) {
+  if (all(c("luminophor", "htmlwidget") %in% class(proxy))) {
     # Add widget later on render
     proxy$x$items$widgets <- c(proxy$x$items$widgets, list(
       list(
@@ -330,7 +330,7 @@ addWidget <- function(proxy,
     )
 
     # Namespacing to avoid conflicts (http://deanattali.com/blog/htmlwidgets-tips/)
-    proxy$session$sendCustomMessage("phosphorr:addWidget", data)
+    proxy$session$sendCustomMessage("luminophor:addWidget", data)
 
     shiny::insertUI(
       selector = paste(
@@ -350,15 +350,15 @@ addWidget <- function(proxy,
 #' "minimized," the widget will return to its original position in the layout.
 #' When a widget is maximized, it will take up the full size of the dock.
 #'
-#' @param proxy \link[=phosphorrProxy]{Proxy PhosphorR object}
-#' @param widgetId ID for phosphorr widget
+#' @param proxy \link[=luminophorProxy]{Proxy LuminophoR object}
+#' @param widgetId ID for luminophor widget
 #'
-#' @return \link[=phosphorrProxy]{Proxy PhosphorR object}
+#' @return \link[=luminophorProxy]{Proxy LuminophoR object}
 #'
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
-#'   library(phosphorr)
+#'   library(luminophor)
 #'   shinyApp(
 #'     ui = fluidPage(
 #'       titlePanel("Old Faithful Geyser Data"),
@@ -368,13 +368,13 @@ addWidget <- function(proxy,
 #'           actionButton('minimize', 'Minimize Plot', icon = icon('window-minimize'))
 #'         ),
 #'         mainPanel(
-#'           phosphorrOutput('pjs', height='90vh')
+#'           luminophorOutput('lmo', height='90vh')
 #'         )
 #'       )
 #'     ),
 #'     server = function(input, output) {
-#'       output$pjs <- renderPhosphorr(
-#'         phosphorr() %>%
+#'       output$lmo <- renderLuminophor(
+#'         luminophor() %>%
 #'           addWidget("widget-slider",
 #'                     title = "Slider",
 #'                     ui = sliderInput("bins", "Number of bins:",
@@ -394,12 +394,12 @@ addWidget <- function(proxy,
 #'       })
 #'
 #'       observeEvent(input$maximize, {
-#'         phosphorrProxy('pjs') %>%
+#'         luminophorProxy('lmo') %>%
 #'           maximizeWidget('widget-plot')
 #'       })
 #'
 #'       observeEvent(input$minimize, {
-#'         phosphorrProxy('pjs') %>%
+#'         luminophorProxy('lmo') %>%
 #'           minimizeWidget('widget-plot')
 #'       })
 #'     }
@@ -414,11 +414,11 @@ NULL
 #' @export
 maximizeWidget <- function(proxy,
                            widgetId) {
-  if (all(c("phosphorr", "htmlwidget") %in% class(proxy))) {
+  if (all(c("luminophor", "htmlwidget") %in% class(proxy))) {
     stop("Maximizing widgets can only occur after render.")
   } else {
     data <- list(dockID = proxy$id, widgetID = widgetId)
-    proxy$session$sendCustomMessage("phosphorr:maximizeWidget", data)
+    proxy$session$sendCustomMessage("luminophor:maximizeWidget", data)
   }
 
   return(proxy)
@@ -429,11 +429,11 @@ maximizeWidget <- function(proxy,
 #' @export
 minimizeWidget <- function(proxy,
                            widgetId) {
-  if (all(c("phosphorr", "htmlwidget") %in% class(proxy))) {
+  if (all(c("luminophor", "htmlwidget") %in% class(proxy))) {
     stop("Minimizing widgets can only occur after render.")
   } else {
     data <- list(dockID = proxy$id, widgetID = widgetId)
-    proxy$session$sendCustomMessage("phosphorr:minimizeWidget", data)
+    proxy$session$sendCustomMessage("luminophor:minimizeWidget", data)
   }
 
   return(proxy)
@@ -441,16 +441,16 @@ minimizeWidget <- function(proxy,
 
 #' Remove widgets in the dock
 #'
-#' @param proxy \link[=phosphorrProxy]{Proxy PhosphorR object}
-#' @param widgetIDs IDs for phosphorr widget
+#' @param proxy \link[=luminophorProxy]{Proxy LuminophoR object}
+#' @param widgetIDs IDs for luminophor widget
 #' @param .all Remove all widgets?  This will override any ids specified in \code{widgetIDs}
 #'
-#' @return \link[=phosphorrProxy]{Proxy PhosphorR object}
+#' @return \link[=luminophorProxy]{Proxy LuminophoR object}
 #'
 #' @examples
 #' if (interactive()) {
 #'   library(shiny)
-#'   library(phosphorr)
+#'   library(luminophor)
 #'   shinyApp(
 #'     ui = fluidPage(
 #'       titlePanel("Old Faithful Geyser Data"),
@@ -461,16 +461,16 @@ minimizeWidget <- function(proxy,
 #'           actionButton('remove_all', 'Remove All', icon = icon('times'))
 #'         ),
 #'         mainPanel(
-#'           phosphorrOutput('pjs', height='90vh')
+#'           luminophorOutput('lmo', height='90vh')
 #'         )
 #'       )
 #'     ),
 #'     server = function(input, output) {
-#'       output$pjs <- renderPhosphorr({
+#'       output$lmo <- renderLuminophor({
 #'         input$rerender
 #'         initval <- isolate({if (!is.null(input$bins)) input$bins else 30})
 #'
-#'         phosphorr() %>%
+#'         luminophor() %>%
 #'           addWidget("widget-slider",
 #'                     title = "Slider",
 #'                     ui = sliderInput("bins", "Number of bins:",
@@ -490,12 +490,12 @@ minimizeWidget <- function(proxy,
 #'       })
 #'
 #'       observeEvent(input$remove_slider, {
-#'         phosphorrProxy('pjs') %>%
+#'         luminophorProxy('lmo') %>%
 #'           removeWidgets('widget-slider')
 #'       })
 #'
 #'       observeEvent(input$remove_all, {
-#'         phosphorrProxy('pjs') %>%
+#'         luminophorProxy('lmo') %>%
 #'           removeWidgets(.all = TRUE)
 #'       })
 #'     }
@@ -511,11 +511,11 @@ removeWidgets <- function(proxy,
     warning("Duplicate specifications: .all and widgetIDs are both specified. All widgets will be removed.")
   }
 
-  if (all(c("phosphorr", "htmlwidget") %in% class(proxy))) {
+  if (all(c("luminophor", "htmlwidget") %in% class(proxy))) {
     stop("Removing widgets can only occur after render.")
   } else {
     data <- list(dockID = proxy$id, widgetIDs = widgetIDs, all = .all)
-    proxy$session$sendCustomMessage("phosphorr:removeWidgets", data)
+    proxy$session$sendCustomMessage("luminophor:removeWidgets", data)
   }
 
   return(proxy)

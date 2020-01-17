@@ -10,7 +10,7 @@
 library(shiny)
 library(ggplot2)
 library(magrittr)
-library(phosphorr)
+library(luminophor)
 
 # Define UI for application that draws a histogram
 library(shinydashboard)
@@ -47,17 +47,17 @@ ui <- dashboardPage(
       line-height: 1.6rem;
     }
 
-    .pretty.p-toggle .state.p-off .icon {
+    .pretty.lm-toggle .state.lm-off .icon {
       color: #000;
     }
 
-.widget-content.p-Widget > .widget-body {
+.widget-content.lm-Widget > .widget-body {
   flex: 1 1 auto;
   overflow: auto;
   padding: 8px;
 }
 
-.widget-content.p-Widget > .widget-header {
+.widget-content.lm-Widget > .widget-header {
   min-height: 24px;
   max-height: 24px;
   border-bottom: 1px solid #C0C0C0;
@@ -71,7 +71,7 @@ ui <- dashboardPage(
     tabItems(
       # First tab content
       tabItem(tabName = "dashboard",
-              phosphorrOutput("pjsbox", height="90vh") # Hacky height, but it works
+              luminophorOutput("lmobox", height="90vh") # Hacky height, but it works
       ),
 
       # Second tab content
@@ -105,10 +105,10 @@ server <- function(input, output, session) {
     tags$section(class = "widget-body", items)
   }
 
-  output$pjsbox <- renderPhosphorr({
+  output$lmobox <- renderLuminophor({
     input$rerender
 
-    phosphorr() %>%
+    luminophor() %>%
       addWidget(id = 'widget-myslider',
                 caption = "This is my slider",
                 icon = icon("layer-group"),
@@ -179,14 +179,14 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$remove_btn, {
-    phosphorrProxy("pjsbox") %>% removeWidgets("widget-myslider")
+    luminophorProxy("lmobox") %>% removeWidgets("widget-myslider")
   })
 
   observeEvent(input$maximize, {
     if (input$maximize) {
-      phosphorrProxy("pjsbox") %>% maximizeWidget("widget-myslider")
+      luminophorProxy("lmobox") %>% maximizeWidget("widget-myslider")
     } else {
-      phosphorrProxy("pjsbox") %>% minimizeWidget("widget-myslider")
+      luminophorProxy("lmobox") %>% minimizeWidget("widget-myslider")
     }
   })
 

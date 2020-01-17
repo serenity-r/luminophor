@@ -2,7 +2,7 @@
 /* MAIN */
 /* **** */
 
-.phosphorr {
+.luminophor {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -15,11 +15,11 @@
   overflow: hidden;
 }
 
-.p-BoxPanel {
+.lm-BoxPanel {
   flex: 1 1 auto;
 }
 
-.p-DockPanel {
+.lm-DockPanel {
   padding: 4px;
 }
 
@@ -75,7 +75,7 @@
 /* DOCKPANEL */
 /* ********* */
 
-.p-DockPanel-overlay {
+.lm-DockPanel-overlay {
   background: rgba(255, 255, 255, 0.6);
   border: 1px dashed black;
   transition-property: top, left, right, bottom;
@@ -83,11 +83,11 @@
   transition-timing-function: ease;
 }
 
-/* .p-DockPanel-widget { */
+/* .lm-DockPanel-widget { */
 /*  padding-top: 12px; */
 /* } */
 
-/* .p-DockPanel-handle {
+/* .lm-DockPanel-handle {
   transform: translateY(6px);
 } */
 
@@ -96,19 +96,19 @@
 /* TABBAR */
 /* ****** */
 
-.p-TabBar {
+.lm-TabBar {
   min-height: 30px;
   max-height: 30px;
 }
 
-.p-TabBar-content {
+.lm-TabBar-content {
   min-width: 0;
   min-height: 0;
   align-items: flex-end;
   border-bottom: 1px solid #d7d7d7;
 }
 
-.p-TabBar-tab {
+.lm-TabBar-tab {
   padding: 0px 10px;
   background: #E5E5E5;
   border: 1px solid #C0C0C0;
@@ -123,47 +123,47 @@
   line-height: 26px;
 }
 
-.p-TabBar-tab.p-mod-current {
+.lm-TabBar-tab.lm-mod-current {
   background: white;
   border-top: 3px solid rgba(39, 128, 277, 0.7);
 }
 
-.p-TabBar-tab:hover:not(.p-mod-current) {
+.lm-TabBar-tab:hover:not(.lm-mod-current) {
   background: #F0F0F0;
 }
 
 
-.p-TabBar-tab:first-child {
+.lm-TabBar-tab:first-child {
   margin-left: 0;
 }
 
 
-.p-TabBar-tab.p-mod-current {
+.lm-TabBar-tab.lm-mod-current {
   min-height: 29px;
   max-height: 29px;
   transform: translateY(1px);
 }
 
 
-.p-TabBar-tabIcon,
-.p-TabBar-tabLabel,
-.p-TabBar-tabCloseIcon {
+.lm-TabBar-tabIcon,
+.lm-TabBar-tabLabel,
+.lm-TabBar-tabCloseIcon {
   display: inline-block;
 }
 
 
-.p-TabBar-tab.p-mod-closable > .p-TabBar-tabCloseIcon {
+.lm-TabBar-tab.lm-mod-closable > .lm-TabBar-tabCloseIcon {
   margin-left: 4px;
 }
 
 
-.p-TabBar-tab.p-mod-closable > .p-TabBar-tabCloseIcon:before {
+.lm-TabBar-tab.lm-mod-closable > .lm-TabBar-tabCloseIcon:before {
   content: '\f00d';
   font-family: FontAwesome;
 }
 
 
-.p-TabBar-tab.p-mod-drag-image {
+.lm-TabBar-tab.lm-mod-drag-image {
   min-height: 29px;
   max-height: 29px;
   min-width: 125px;

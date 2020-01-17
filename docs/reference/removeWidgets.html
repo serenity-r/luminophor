@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Remove widgets in the dock — removeWidgets • phosphorr</title>
+<title>Remove widgets in the dock — removeWidgets • luminophor</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -65,7 +65,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">phosphorr</a>
+        <a class="navbar-link" href="../index.html">luminophor</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
@@ -85,7 +85,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/serenity-r/phosphorr">
+  <a href="https://github.com/serenity-r/luminophor">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -104,7 +104,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Remove widgets in the dock</h1>
-    <small class="dont-index">Source: <a href='https://github.com/serenity-r/phosphorr/blob/master/R/phosphorr.R'><code>R/phosphorr.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/serenity-r/luminophor/blob/master/R/luminophor.R'><code>R/luminophor.R</code></a></small>
     <div class="hidden name"><code>removeWidgets.Rd</code></div>
     </div>
 
@@ -121,11 +121,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>proxy</th>
-      <td><p><a href='phosphorrProxy.html'>Proxy PhosphorR object</a></p></td>
+      <td><p><a href='luminophorProxy.html'>Proxy LuminophoR object</a></p></td>
     </tr>
     <tr>
       <th>widgetIDs</th>
-      <td><p>IDs for phosphorr widget</p></td>
+      <td><p>IDs for luminophor widget</p></td>
     </tr>
     <tr>
       <th>.all</th>
@@ -135,33 +135,33 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><a href='phosphorrProxy.html'>Proxy PhosphorR object</a></p>
+    <p><a href='luminophorProxy.html'>Proxy LuminophoR object</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()) {
   <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>shiny</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>phosphorr</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>luminophor</span>)
   <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/shinyApp.html'>shinyApp</a></span>(
     <span class='kw'>ui</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/fluidPage.html'>fluidPage</a></span>(
       <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/titlePanel.html'>titlePanel</a></span>(<span class='st'>"Old Faithful Geyser Data"</span>),
       <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarLayout</a></span>(
-        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarPanel.html'>sidebarPanel</a></span>(
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>sidebarPanel</a></span>(
           <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span>(<span class='st'>'rerender'</span>, <span class='st'>'Rerender'</span>, <span class='kw'>icon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/icon.html'>icon</a></span>(<span class='st'>'redo'</span>)),
           <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span>(<span class='st'>'remove_slider'</span>, <span class='st'>'Remove Slider'</span>, <span class='kw'>icon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/icon.html'>icon</a></span>(<span class='st'>'times'</span>)),
           <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/actionButton.html'>actionButton</a></span>(<span class='st'>'remove_all'</span>, <span class='st'>'Remove All'</span>, <span class='kw'>icon</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/icon.html'>icon</a></span>(<span class='st'>'times'</span>))
         ),
-        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/mainPanel.html'>mainPanel</a></span>(
-          <span class='fu'><a href='phosphorrOutput.html'>phosphorrOutput</a></span>(<span class='st'>'pjs'</span>, <span class='kw'>height</span><span class='kw'>=</span><span class='st'>'90vh'</span>)
+        <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sidebarLayout.html'>mainPanel</a></span>(
+          <span class='fu'><a href='luminophorOutput.html'>luminophorOutput</a></span>(<span class='st'>'lmo'</span>, <span class='kw'>height</span><span class='kw'>=</span><span class='st'>'90vh'</span>)
         )
       )
     ),
     <span class='kw'>server</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>input</span>, <span class='no'>output</span>) {
-      <span class='no'>output</span>$<span class='no'>pjs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='phosphorrOutput.html'>renderPhosphorr</a></span>({
+      <span class='no'>output</span>$<span class='no'>lmo</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='luminophorOutput.html'>renderLuminophor</a></span>({
         <span class='no'>input</span>$<span class='no'>rerender</span>
         <span class='no'>initval</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/isolate.html'>isolate</a></span>({<span class='kw'>if</span> (!<span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='no'>input</span>$<span class='no'>bins</span>)) <span class='no'>input</span>$<span class='no'>bins</span> <span class='kw'>else</span> <span class='fl'>30</span>})
 
-        <span class='fu'><a href='phosphorr.html'>phosphorr</a></span>() <span class='kw'>%&gt;%</span>
+        <span class='fu'><a href='luminophor.html'>luminophor</a></span>() <span class='kw'>%&gt;%</span>
           <span class='fu'><a href='addWidget.html'>addWidget</a></span>(<span class='st'>"widget-slider"</span>,
                     <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Slider"</span>,
                     <span class='kw'>ui</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/sliderInput.html'>sliderInput</a></span>(<span class='st'>"bins"</span>, <span class='st'>"Number of bins:"</span>,
@@ -181,12 +181,12 @@
       })
 
       <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>observeEvent</a></span>(<span class='no'>input</span>$<span class='no'>remove_slider</span>, {
-        <span class='fu'><a href='phosphorrProxy.html'>phosphorrProxy</a></span>(<span class='st'>'pjs'</span>) <span class='kw'>%&gt;%</span>
+        <span class='fu'><a href='luminophorProxy.html'>luminophorProxy</a></span>(<span class='st'>'lmo'</span>) <span class='kw'>%&gt;%</span>
           <span class='fu'>removeWidgets</span>(<span class='st'>'widget-slider'</span>)
       })
 
       <span class='fu'><a href='https://rdrr.io/pkg/shiny/man/observeEvent.html'>observeEvent</a></span>(<span class='no'>input</span>$<span class='no'>remove_all</span>, {
-        <span class='fu'><a href='phosphorrProxy.html'>phosphorrProxy</a></span>(<span class='st'>'pjs'</span>) <span class='kw'>%&gt;%</span>
+        <span class='fu'><a href='luminophorProxy.html'>luminophorProxy</a></span>(<span class='st'>'lmo'</span>) <span class='kw'>%&gt;%</span>
           <span class='fu'>removeWidgets</span>(<span class='kw'>.all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
       })
     }

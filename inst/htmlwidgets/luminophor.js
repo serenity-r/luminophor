@@ -1,6 +1,6 @@
 HTMLWidgets.widget({
 
-  name: 'phosphorr',
+  name: 'luminophor',
 
   type: 'output',
 
@@ -15,12 +15,12 @@ HTMLWidgets.widget({
       renderValue: function(opts) {
         if (dock === null) {
   	      // Create DockPanel
-  	      dock = new phosphorjs.DockPanel();
+  	      dock = new lumino.DockPanel();
 
   	      // Attach dock to el
-  	      phosphorjs.Widget.attach(dock, $('#'+el.id).find(".phosphorr-shim")[0]);
+  	      lumino.Widget.attach(dock, $('#'+el.id).find(".luminophor-shim")[0]);
         } else {
-          this.removeWidgets(phosphorjs.toArray(dock.widgets()));
+          this.removeWidgets(lumino.toArray(dock.widgets()));
         }
 
   	    // Add widgets
@@ -86,7 +86,7 @@ HTMLWidgets.widget({
           if (widget.parent) {
             widget.parent = null;
           } else if (widget.isAttached) {
-            phosphorjs.Widget.detach(widget);
+            lumino.Widget.detach(widget);
           }
         });
       }
@@ -94,19 +94,19 @@ HTMLWidgets.widget({
   }
 });
 
-// Helper function to get an existing phosphorr object via the htmlWidgets object.
+// Helper function to get an existing luminophor object via the htmlWidgets object.
 function getDock(id) {
 
   // Get the HTMLWidgets object
   var htmlWidgetsObj = HTMLWidgets.find("#" + id);
 
-  var phosphorrObj = null;
+  var luminophorObj = null;
   if( typeof(htmlWidgetsObj) !== "undefined"){
     // Use the getDock method we created to get the underlying gridstack
-    phosphorrObj = htmlWidgetsObj.getDock();
+    luminophorObj = htmlWidgetsObj.getDock();
   }
 
-  return(phosphorrObj);
+  return(luminophorObj);
 }
 
 // This currently assumes that index of widget is related to top/left and bottom/right
@@ -133,23 +133,23 @@ function setSize(layout, widgetID, size, dir) {
 
 function maximizeWidget(dockID, widgetID) {
   var dock = getDock(dockID);
-  var widget = phosphorjs.find(dock.widgets(), (w) => {return w.id === widgetID});
+  var widget = lumino.find(dock.widgets(), (w) => {return w.id === widgetID});
 
   HTMLWidgets.find('#'+dockID).maximizeWidget(widget);
 }
 
 function minimizeWidget(dockID, widgetID) {
   var dock = getDock(dockID);
-  var widget = phosphorjs.find(dock.widgets(), (w) => {return w.id === widgetID});
+  var widget = lumino.find(dock.widgets(), (w) => {return w.id === widgetID});
 
   HTMLWidgets.find('#'+dockID).minimizeWidget(widget);
 }
 
 function removeWidgets(dockID, widgetIDs, all) {
   var dock = getDock(dockID);
-  var widgets = phosphorjs.toArray(dock.widgets());
+  var widgets = lumino.toArray(dock.widgets());
   if (!all) {
-    widgets = phosphorjs.toArray(phosphorjs.filter(widgets, widget => { return(widgetIDs.includes(widget.id)) }));
+    widgets = lumino.toArray(lumino.filter(widgets, widget => { return(widgetIDs.includes(widget.id)) }));
   }
   HTMLWidgets.find('#'+dockID).removeWidgets(widgets);
 }
@@ -163,7 +163,7 @@ function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconC
   }
 
   // Create widget and bind content
-  var widget = new phosphorjs.Widget({node: document.getElementById(widgetID)});
+  var widget = new lumino.Widget({node: document.getElementById(widgetID)});
 
   // Add title and make closable
   widget.title.label = title;
@@ -173,13 +173,13 @@ function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconC
 
   // Need to rebind Shiny on certain events (for now, show and resize only)
   // Also need throttling for resize:  https://shiny.rstudio.com/articles/js-dashboard.html
-  widget.onCloseRequest = function(msg) { HTMLWidgets.find("#" + $(this.parent.node).closest(".phosphorr").attr("id")).removeWidgets(Array(this)); // Need to use the HTMLWidget method or it won't work
+  widget.onCloseRequest = function(msg) { HTMLWidgets.find("#" + $(this.parent.node).closest(".luminophor").attr("id")).removeWidgets(Array(this)); // Need to use the HTMLWidget method or it won't work
   };
   widget.onResize = _.debounce( function(msg) { Shiny.bindAll(this); }, 150 );
 
   // Attach widget to panel (first widget is dock)
   dock = getDock(dockID);
-  var ref = (refwidgetID !== null ? phosphorjs.find(dock.children(), (w) => {return w.id === refwidgetID}) : null);
+  var ref = (refwidgetID !== null ? lumino.find(dock.children(), (w) => {return w.id === refwidgetID}) : null);
   dock.addWidget(widget = widget, options = {mode: insertmode, ref: ref});
 
   // Tricky tricky tricky
@@ -195,7 +195,7 @@ function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconC
 // Note:  Might want to make widget ids boxID + widgetID so can have same widgetID in different stacks.  Right now, based on best practices, items must have unique IDs, even across different boxes
 
 // Custom handler to add a new widget
-Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
+Shiny.addCustomMessageHandler('luminophor:addWidget', function(message) {
   addWidget(
     dockID = message.dockID,
     widgetID = message.widgetID,
@@ -210,7 +210,7 @@ Shiny.addCustomMessageHandler('phosphorr:addWidget', function(message) {
 });
 
 // Custom handler to maximize a widget
-Shiny.addCustomMessageHandler('phosphorr:maximizeWidget', function(message) {
+Shiny.addCustomMessageHandler('luminophor:maximizeWidget', function(message) {
   maximizeWidget(
     dockID = message.dockID,
     widgetID = message.widgetID
@@ -218,7 +218,7 @@ Shiny.addCustomMessageHandler('phosphorr:maximizeWidget', function(message) {
 });
 
 // Custom handler to minimize a widget
-Shiny.addCustomMessageHandler('phosphorr:minimizeWidget', function(message) {
+Shiny.addCustomMessageHandler('luminophor:minimizeWidget', function(message) {
   minimizeWidget(
     dockID = message.dockID,
     widgetID = message.widgetID
@@ -226,7 +226,7 @@ Shiny.addCustomMessageHandler('phosphorr:minimizeWidget', function(message) {
 });
 
 // Custom handler to remove a widget
-Shiny.addCustomMessageHandler('phosphorr:removeWidgets', function(message) {
+Shiny.addCustomMessageHandler('luminophor:removeWidgets', function(message) {
   removeWidgets(
     dockID = message.dockID,
     widgetIDs = message.widgetIDs,

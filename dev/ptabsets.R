@@ -8,11 +8,11 @@
 #
 
 library(shiny)
-library(phosphorr)
+library(luminophor)
 library(magrittr)
 
 ui <- fluidPage(
-  titlePanel("PhosphorR Tabsets"),
+  titlePanel("LuminophoR Tabsets"),
   # Sidebar layout with input and output definitions ----
   sidebarLayout(
 
@@ -41,7 +41,7 @@ ui <- fluidPage(
 
     # Main panel for displaying outputs ----
     mainPanel(
-      phosphorrOutput("pjsdock", height="90vh") # Hacky height, but it works
+      luminophorOutput("lmodock", height="90vh") # Hacky height, but it works
     )
   )
 )
@@ -62,14 +62,14 @@ server <- function(input, output, session) {
     dist(input$n)
   })
 
-  output$pjsdock <- renderPhosphorr({
-    phosphorr()
+  output$lmodock <- renderLuminophor({
+    luminophor()
   })
 
   observeEvent(input$btn, {
     ns <- NS(input$btn)
 
-    phosphorrProxy("pjsdock") %>%
+    luminophorProxy("lmodock") %>%
       addWidget(id = paste0('widget-', ns('plot')),
                 ui = plotOutput(ns('plot')),
                 title = "Histogram") %>%

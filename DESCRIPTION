@@ -1,20 +1,22 @@
-Package: phosphorr
-Title: HTMLWidget implementation of PhosphorJS
+Package: luminophor
+Title: HTMLWidget implementation of Lumino
 Version: 0.0.0.9000
 Authors@R: person("M. Drew", "LaMar", email = "mdlama@wm.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4037-1848"))
-Description: HTMLWidget implementation of PhosphorJS
-    PhosphorJS provides a rich set of widgets, layouts, events, and data structures. 
-    These enable developers to construct advanced, production-quality, desktop-like 
-    web applications that would be otherwise impossible using CSS alone. See the
-    PhosphorJS library for more information (http://phosphorjs.github.io/).
+Description: HTMLWidget implementation of Lumino
+    Lumino, previously known as PhosphorJS, provides a rich set of widgets, 
+    layouts, events, and data structures. These enable developers to construct 
+    advanced, production-quality, desktop-like web applications that would be 
+    otherwise impossible using CSS alone. See the Lumino library
+    (https://github.com/jupyterlab/lumino) and PhosphorJS documentation
+    (https://phosphorjs.github.io/) for more information.
 Depends: R (>= 3.4.0)
 Imports:
     shiny,
     htmlwidgets,
     htmltools,
     magrittr
-URL: https://serenity-r.github.io/phosphorr, https://github.com/serenity-r/phosphorr
-BugReports: https://github.com/serenity-r/phosphorr/issues
+URL: https://serenity-r.github.io/luminophor, https://github.com/serenity-r/luminophor
+BugReports: https://github.com/serenity-r/luminophor/issues
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true

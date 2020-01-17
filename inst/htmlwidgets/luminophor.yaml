@@ -1,13 +1,13 @@
 dependencies:
-- name: phosphorr
+- name: luminophor
   version: 0.0.0.9000
   src: htmlwidgets/tmpl
   style:
-    - phosphor.css
-- name: phosphorjs
+    - luminophor.css
+- name: lumino
   version: 1.0.0
-  src: htmlwidgets/lib/phosphorjs
-  script: phosphor.js
+  src: htmlwidgets/lib/lumino
+  script: lumino.js
 - name: underscore.js
   version: 1.8.3
   src: htmlwidgets/lib/underscore

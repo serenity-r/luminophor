@@ -10,7 +10,7 @@
 library(shiny)
 library(ggplot2)
 library(magrittr)
-library(phosphorr)
+library(luminophor)
 
 # Define UI for application that draws a histogram
 library(shinydashboard)
@@ -32,7 +32,7 @@ ui <- dashboardPage(
     tabItems(
       # First tab content
       tabItem(tabName = "dashboard",
-              phosphorrOutput("pjsbox", height="90vh") # Hacky height, but it works
+              luminophorOutput("lmobox", height="90vh") # Hacky height, but it works
       ),
 
       # Second tab content
@@ -53,14 +53,14 @@ server <- function(input, output, session) {
   set.seed(122)
   histdata <- rnorm(500)
 
-  output$pjsbox <- renderPhosphorr({
-    phosphorr()
+  output$lmobox <- renderLuminophor({
+    luminophor()
   })
 
   observeEvent(input$btn, {
     ns <- NS(input$btn)
 
-    phosphorrProxy("pjsbox") %>%
+    luminophorProxy("lmobox") %>%
       addWidget(id = paste0('widget', ns('slider')),
                 ui = sliderInput(ns('slider'), "Number of observations:", 1, 100, 50),
                 title = "Slider") %>%
@@ -105,7 +105,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$remove_btn, {
-    phosphorrProxy("pjsbox") %>% removeWidgets(.all = TRUE)
+    luminophorProxy("lmobox") %>% removeWidgets(.all = TRUE)
   })
 }
 

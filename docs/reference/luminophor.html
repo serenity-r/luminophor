@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • luminophor</title>
+<title>Create a LuminophoR dock htmlwidget — luminophor • luminophor</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,7 +32,11 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Create a LuminophoR dock htmlwidget — luminophor" />
+
+<meta property="og:description" content="This function creates a LuminophoR dock using htmlwidgets. The widget can be
+rendered on HTML pages generated from R Markdown, Shiny, or other applications." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -50,7 +54,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -98,102 +102,59 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Create a LuminophoR dock htmlwidget</h1>
+    <small class="dont-index">Source: <a href='https://github.com/serenity-r/luminophor/blob/master/R/luminophor.R'><code>R/luminophor.R</code></a></small>
+    <div class="hidden name"><code>luminophor.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>This function creates a LuminophoR dock using htmlwidgets. The widget can be
+rendered on HTML pages generated from R Markdown, Shiny, or other applications.</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-luminophor" class="hasAnchor"><a href="#section-luminophor" class="anchor"></a>LuminophoR</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="LuminophoR-package.html">LuminophoR-package</a></code> </p>
-        </td>
-        <td><p>LuminophoR: HTMLWidget implementation of Lumino layout manager</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-initialization-and-rendering-functions" class="hasAnchor"><a href="#section-initialization-and-rendering-functions" class="anchor"></a>Initialization and rendering functions</h2>
-          <p class="section-desc"><p>Functions for creating and rendering a dock</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="luminophor.html">luminophor()</a></code> </p>
-        </td>
-        <td><p>Create a LuminophoR dock htmlwidget</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="luminophorOutput.html">luminophorOutput()</a></code> <code><a href="luminophorOutput.html">renderLuminophor()</a></code> </p>
-        </td>
-        <td><p>Helper functions for using Lumino in Shiny</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-luminophor-widget-api" class="hasAnchor"><a href="#section-luminophor-widget-api" class="anchor"></a>LuminophoR Widget API</h2>
-          <p class="section-desc"><p>Functions that perform widget actions on the dock</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="luminophorProxy.html">luminophorProxy()</a></code> </p>
-        </td>
-        <td><p>Create a LuminophoR proxy object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="addWidget.html">addWidget()</a></code> </p>
-        </td>
-        <td><p>Adds a new widget to the dock</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="removeWidgets.html">removeWidgets()</a></code> </p>
-        </td>
-        <td><p>Remove widgets in the dock</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="maximizeWidget.html">maximizeWidget()</a></code> <code><a href="maximizeWidget.html">minimizeWidget()</a></code> </p>
-        </td>
-        <td><p>Maximize or minimize a widget in the dock</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pipe.html">%>%</a></code> </p>
-        </td>
-        <td><p>LuminophoR pipe operator</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>luminophor</span>(<span class='kw'>items</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='st'>"100%"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='st'>"72vh"</span>,
+  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>items</th>
+      <td><p>Options for htmlwidget (currently not used in this function)</p></td>
+    </tr>
+    <tr>
+      <th>width, height</th>
+      <td><p>Fixed width/height for widget (in css units). The default
+is NULL, which results in intelligent automatic sizing based on the widget's
+container. (currently not used in this function - see
+<code><a href='luminophorOutput.html'>luminophorOutput</a></code> to set size specifications)</p></td>
+    </tr>
+    <tr>
+      <th>elementId</th>
+      <td><p>Use an explicit element ID for the widget (rather than an
+automatically generated one). Useful if you have other JavaScript that
+needs to explicitly discover and interact with a specific widget instance.</p></td>
+    </tr>
     </table>
-  </div>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p><code><a href='luminophorProxy.html'>luminophorProxy</a></code></p></div>
+    
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-luminophor">LuminophoR</a></li>
-      <li><a href="#section-initialization-and-rendering-functions">Initialization and rendering functions</a></li>
-      <li><a href="#section-luminophor-widget-api">LuminophoR Widget API</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
   </div>
 </div>
 
