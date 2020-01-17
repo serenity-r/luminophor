@@ -7,7 +7,7 @@ dependencies:
 - name: lumino
   version: 1.0.0
   src: htmlwidgets/lib/lumino
-  script: lumino.js
+  script: lumino.min.js
 - name: underscore.js
   version: 1.8.3
   src: htmlwidgets/lib/underscore
