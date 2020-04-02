@@ -61,6 +61,8 @@ HTMLWidgets.widget({
         return (init ? initLayout : dock.saveLayout());
       },
 
+      //html widget ^^
+
       restoreLayout: function() {
         dock.restoreLayout(initLayout);
       },
@@ -190,9 +192,18 @@ function addWidget(dockID, widgetID, title = "Widget", caption = "Widget", iconC
   }
 }
 
+// Send the layout to R
+function getLayout(dockID) {
+  var dock = getDock(dockID);
+  var myLayout = dock.saveLayout();
+  Shiny.setInputValue(dockID + "_layout:layout_handler", myLayout);
+}
+
 // ---- R -> Javascript
 
 // Note:  Might want to make widget ids boxID + widgetID so can have same widgetID in different stacks.  Right now, based on best practices, items must have unique IDs, even across different boxes
+
+//listeners!!!!!!
 
 // Custom handler to add a new widget
 Shiny.addCustomMessageHandler('luminophor:addWidget', function(message) {
@@ -231,5 +242,12 @@ Shiny.addCustomMessageHandler('luminophor:removeWidgets', function(message) {
     dockID = message.dockID,
     widgetIDs = message.widgetIDs,
     all = message.all
+  );
+});
+
+// Custom handler to get layout
+Shiny.addCustomMessageHandler('luminophor:getLayout', function(message) {
+  getLayout(
+    dockID = message.dockID
   );
 });
