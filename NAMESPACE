@@ -2,6 +2,7 @@
 
 export("%>%")
 export(addWidget)
+export(getLayout)
 export(luminophor)
 export(luminophorOutput)
 export(luminophorProxy)
