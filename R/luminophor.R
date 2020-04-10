@@ -540,11 +540,11 @@ getLayout <- function(proxy) {
   return(proxy)
 }
 
-#Handler for converting layout
+# Handler for converting layout
+# Data comes in as string, so use fromJSON to convert to nested list
 convertLayout <- function(type, session, inputname) {
-  paste(12)
+  jsonlite::fromJSON(type)
 }
-
 
 # Given a Shiny tag object, process singletons and dependencies. Returns a list
 # with rendered HTML and dependency objects.

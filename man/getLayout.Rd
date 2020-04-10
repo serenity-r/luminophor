@@ -2,7 +2,7 @@
 % Please edit documentation in R/luminophor.R
 \name{getLayout}
 \alias{getLayout}
-\title{Remove widgets in the dock}
+\title{Get layout of the dock}
 \usage{
 getLayout(proxy)
 }
@@ -10,5 +10,5 @@ getLayout(proxy)
 \item{proxy}{\link[=luminophorProxy]{Proxy LuminophoR object}}
 }
 \description{
-Remove widgets in the dock
+Get layout of the dock
 }
