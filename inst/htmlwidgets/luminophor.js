@@ -42,6 +42,13 @@ HTMLWidgets.widget({
 
   	    // Save layout
   	    initLayout = dock.saveLayout();
+
+        // When layout changes, track Flexdashboard compatibility of layout
+        // send validFlexdash output to R
+  	    mydock = getDock('lmobox');
+  	    //mydock.onUpdateRequest = console.log("hello");
+  	    mydock.onUpdateRequest = function(){Shiny.setInputValue(el.id + "_validFlexdash", validFlexdash(el.id))};
+
       },
 
       resize: function(width, height) {
@@ -211,6 +218,56 @@ function getLayout(dockID) {
 }));
 }
 
+// Check if layout is Flexdashboard compatible
+function validFlexdash(dockID) {
+  if (dockID === null) {
+    return false;
+  }
+  var dock = getDock(dockID);
+  var myLayout = dock.saveLayout();
+
+  //if null, valid layout
+  if (myLayout.main === null) {
+    return true}
+
+  //if there is only one box (no children), valid layout
+  if (myLayout.main !== null && myLayout.main.children === undefined) {
+    return true}
+
+  // if there are any children, check for grandchildren
+  if (myLayout.main !== null && myLayout.main.children !== undefined) {
+    var arya = myLayout.main.children.map(function(children) {
+
+    // if there are no grandchildren, valid layout
+    if (children.children === undefined) {return true}
+
+    //if there are grandchildren, check for great-grandchildren
+    if (children.children !== undefined) {
+      var stark = children.children.map(function(children) {
+        // if no great-grandchildren, valid layout
+        if (children.children === undefined) {return true}
+        //if great-grandchildren, NOT valid layout
+        if (children.children !== undefined) {return false}
+          });
+    //return true/false results for great-grandchildren
+    return stark.reduce(function(accumulator, currentValue, currentIndex, array) {
+      return accumulator && currentValue;
+          });
+        }
+      });
+    //then return true/false results for grandchildren
+    return arya.reduce(function(accumulator, currentValue, currentIndex, array) {
+      return accumulator && currentValue;
+          });
+      }
+
+   return true;
+}
+
+//function isvalidFlexdash(dockID){
+  //Shiny.setInputValue(dockID + "_validFlexdash", validFlexdash())};
+
+
 // ---- R -> Javascript
 
 // Note:  Might want to make widget ids boxID + widgetID so can have same widgetID in different stacks.  Right now, based on best practices, items must have unique IDs, even across different boxes
@@ -260,6 +317,13 @@ Shiny.addCustomMessageHandler('luminophor:removeWidgets', function(message) {
 // Custom handler to get layout
 Shiny.addCustomMessageHandler('luminophor:getLayout', function(message) {
   getLayout(
+    dockID = message.dockID
+  );
+});
+
+// Custom handler to get layout compatibility
+Shiny.addCustomMessageHandler('luminophor:validFlexdash', function(message) {
+  validFlexdash(
     dockID = message.dockID
   );
 });

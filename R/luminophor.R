@@ -546,6 +546,24 @@ convertLayout <- function(type, session, inputname) {
   jsonlite::fromJSON(type)
 }
 
+
+#' Get whether layout is flexdashboard compatible
+#'
+#' @param proxy \link[=luminophorProxy]{Proxy LuminophoR object}
+#'
+#' @export
+validFlexdash <- function(proxy) {
+  if (all(c("luminophor", "htmlwidget") %in% class(proxy))) {
+    stop("Getting layout compatibility can only occur after render.")
+  } else {
+    data <- list(dockID = proxy$id)
+    #browser()
+    proxy$session$sendCustomMessage("luminophor:validFlexdash", data)
+  }
+  #browser()
+  return(proxy)
+}
+
 # Given a Shiny tag object, process singletons and dependencies. Returns a list
 # with rendered HTML and dependency objects.
 # Ref: https://github.com/rstudio/shiny/blob/353615da897bb6015ca805ae3c830324c1dad95f/R/html-deps.R#L43
@@ -563,4 +581,3 @@ processDeps <- function(tags, session) {
     deps = dependencies
   )
 }
-
