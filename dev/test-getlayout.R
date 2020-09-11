@@ -11,6 +11,7 @@ library(shiny)
 library(ggplot2)
 library(magrittr)
 library(luminophor)
+library(rmarkdown)
 
 # Define UI for application that draws a histogram
 library(shinydashboard)
@@ -30,12 +31,14 @@ ui <- dashboardPage(
   dashboardBody(
     fluidRow(
       column(9, luminophorOutput("lmobox", height="90vh")),
-      column(3, verbatimTextOutput("placeholder"))
+      column(3, verbatimTextOutput("placeholder", placeholder = TRUE),
+             verbatimTextOutput("layout", placeholder = TRUE))
+
     )
   )
 )
 
-# Define server logic required to draw a histogram
+#Server
 server <- function(input, output, session) {
 
   output$lmobox <- renderLuminophor({
@@ -57,9 +60,9 @@ server <- function(input, output, session) {
     luminophorProxy("lmobox") %>% removeWidgets(.all = TRUE)
   })
 
-  #output$placeholder <- renderText({ input$lmobox_layout })
-  #output$placeholder <- renderUI({ input$lmobox_layout })
-  output$placeholder <- renderPrint({ input$lmobox_layout })
+  #output$placeholder <- renderPrint({ input$lmobox_validFlexdash })
+  output$placeholder <- renderText({ input$lmobox_validFlexdash })
+  output$layout <- renderPrint({ input$lmobox_layout })
 
   observeEvent(input$layout_btn, {
     luminophorProxy("lmobox") %>% getLayout()
@@ -67,6 +70,35 @@ server <- function(input, output, session) {
   })
 
 }
+
+
+
+  #https://shiny.rstudio.com/articles/generating-reports.html
+
+  # output$download_layout <- downloadHandler(
+  #   filename = "layout_template.pdf",
+  #   content = function(file) {
+  #     tempReport <- file.path(tempdir(), "layout_template.Rmd")
+  #     file.copy("layout_template.Rmd", tempReport, overwrite = TRUE)
+  #     params <- list(n = input$slider)
+  #     rmarkdown::render(tempReport,
+  #                       output_file = file,
+  #                       params = params,
+  #                       envir = new.env(parent = golbalenv())
+       # )
+
+  #https://shiny.rstudio.com/gallery/download-knitr-reports.html
+
+    #  src <- normalizePath('layout.Rmd')
+    #  owd <- setwd(tempdir())
+     # on.exit(setwd(owd))
+     # file.copy(src, 'layout.Rmd', overwrite = TRUE)
+
+     # library(rmarkdown)
+     # out <- render('layout.Rmd')
+     # file.rename(out, file)
+    # }
+  # )
 
 # Run the application
 shinyApp(ui = ui, server = server)
