@@ -1,5 +1,12 @@
 #' LuminophoR: HTMLWidget implementation of Lumino layout manager
 #'
+#' Lumino, previously known as PhosphorJS, provides a rich set of widgets,
+#' layouts, events, and data structures. These enable developers to construct
+#' advanced, production-quality, desktop-like web applications that would be
+#' otherwise impossible using CSS alone. See the Lumino library
+#' (https://github.com/jupyterlab/lumino) and PhosphorJS documentation
+#' (https://phosphorjs.github.io/) for more information.
+#'
 #' @docType package
 #'
 #' @name LuminophoR-package
@@ -51,10 +58,12 @@ NULL
 #' @export
 #' @param lhs,rhs A \link[=luminophorProxy]{proxy LuminophoR object}
 #' @examples
+#' \dontrun{
 #' # Instead of
 #' addWidget(luminophor(), "mywidget")
 #' # you can write
 #' luminophor() %>% addWidget("mywidget")
+#' }
 NULL
 
 #' Create a LuminophoR dock htmlwidget

@@ -4,9 +4,18 @@
 \alias{addWidget}
 \title{Adds a new widget to the dock}
 \usage{
-addWidget(proxy, id, title = "Widget", caption = "Widget", icon = "",
-  closable = TRUE, insertmode = "tab-after", refwidgetID = NULL,
-  relsize = NULL, ui = shiny::HTML("I am a widget!"))
+addWidget(
+  proxy,
+  id,
+  title = "Widget",
+  caption = "Widget",
+  icon = "",
+  closable = TRUE,
+  insertmode = "tab-after",
+  refwidgetID = NULL,
+  relsize = NULL,
+  ui = shiny::HTML("I am a widget!")
+)
 }
 \arguments{
 \item{proxy}{Either output from the \code{\link{luminophor}} function, or a

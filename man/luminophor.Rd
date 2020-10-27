@@ -4,8 +4,7 @@
 \alias{luminophor}
 \title{Create a LuminophoR dock htmlwidget}
 \usage{
-luminophor(items = NULL, width = "100\%", height = "72vh",
-  elementId = NULL)
+luminophor(items = NULL, width = "100\%", height = "72vh", elementId = NULL)
 }
 \arguments{
 \item{items}{Options for htmlwidget (currently not used in this function)}
